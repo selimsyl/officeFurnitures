@@ -1,4 +1,4 @@
-package FurnitureFactory;
+package furnitureFactory;
 
 import officeFurnitures.Chair;
 

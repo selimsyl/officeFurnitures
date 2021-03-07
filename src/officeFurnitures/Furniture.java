@@ -4,24 +4,27 @@ package officeFurnitures;
  * Abstract main product class, all products share
  */
 public abstract class Furniture {
-    final String model;
-
-    public interface Model {
-        String getValue();
-    }
+    /**
+     * Every furniture has a specific model
+     */
+    final Model model;
 
     /**
      * @param model Furnitures Model Type
      */
-    Furniture(String model) {
+    Furniture(Model model) {
         this.model = model;
     }
 
     /**
      * @return Get furniture model
      */
-    public String getModelName() {
-        return model;
-    }
-//    public abstract Models getModel();
+    public abstract Model getModel();
+}
+
+/**
+ * Furniture Models shares
+ */
+interface Model {
+    String getValue();
 }

@@ -1,8 +1,6 @@
-package FurnitureFactory;
+package furnitureFactory;
 
-import officeFurnitures.Chair;
 import officeFurnitures.Desk;
-import officeFurnitures.Furniture;
 
 public class DeskFactory implements Factory {
 

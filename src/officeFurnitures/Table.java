@@ -5,7 +5,7 @@ package officeFurnitures;
  */
 public class Table extends Furniture {
 
-    public enum TableModels implements Furniture.Model {
+    public enum TableModels implements Model {
         TABLE1("TABLE1"),TABLE2("TABLE2"),TABLE3("TABLE3"),TABLE4("TABLE4"),TABLE5("TABLE5"),
         TABLE6("TABLE6"),TABLE7("TABLE7"),TABLE8("TABLE8"),TABLE9("TABLE9"),TABLE10("TABLE10");
 
@@ -23,8 +23,13 @@ public class Table extends Furniture {
      * @param model Chair Model Type
      */
     public Table(TableModels model, String color) {
-        super(model.getValue());
+        super(model);
         this.color = color;
+    }
+
+    @Override
+    public TableModels getModel() {
+        return (TableModels) model;
     }
 
     private String color;

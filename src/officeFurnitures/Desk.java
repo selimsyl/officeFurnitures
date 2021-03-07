@@ -5,7 +5,7 @@ package officeFurnitures;
  */
 public class Desk extends Furniture {
 
-    public enum DeskModels implements Furniture.Model {
+    public enum DeskModels implements Model {
         DESK1("DESK1"),DESK2("DESK2"),DESK3("DESK3"),DESK4("DESK4"),DESK5("DESK5");
 
         private final String value;
@@ -23,8 +23,12 @@ public class Desk extends Furniture {
      * @param color Chair Color
      */
     public Desk(DeskModels model, String color) {
-        super(model.getValue());
+        super(model);
         this.color = color;
+    }
+
+    public DeskModels getModel() {
+        return (DeskModels) model;
     }
 
     private String color;

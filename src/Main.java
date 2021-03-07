@@ -1,7 +1,7 @@
 //import officeFurnitures.Product.Product.Product;
 
-import FurnitureFactory.BookCaseFactory;
-import FurnitureFactory.Factory;
+import furnitureFactory.BookCaseFactory;
+import furnitureFactory.Factory;
 import officeFurnitures.BookCase;
 import officeFurnitures.Furniture;
 
@@ -14,6 +14,11 @@ public class Main {
 
     public static void produceFurniture(Factory factory) {
         Furniture[] order = factory.createFurniture();
-
+        for (Furniture ele:order
+             ) {
+            if (BookCase.BookCaseModels.BOOKCASE2 == ele.getModel()) {
+                System.out.println("model found");
+            }
+        }
     }
 }
