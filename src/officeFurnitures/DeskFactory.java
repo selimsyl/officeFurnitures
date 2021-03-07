@@ -1,14 +1,12 @@
-package furnitureFactory;
-
-import officeFurnitures.Desk;
+package officeFurnitures;
 
 public class DeskFactory implements Factory {
 
-    Desk.DeskModels model;
+    Models.DeskModels model;
     String Color;
     int count;
 
-    public DeskFactory(Desk.DeskModels model,String Color, int count) {
+    public DeskFactory(Models.DeskModels model,String Color, int count) {
         this.model = model;
         this.Color = Color;
         this.count = count;

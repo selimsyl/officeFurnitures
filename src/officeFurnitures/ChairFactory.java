@@ -1,12 +1,10 @@
-package furnitureFactory;
-
-import officeFurnitures.Chair;
+package officeFurnitures;
 
 public class ChairFactory implements Factory {
-    Chair.ChairModels model;
+    Models.ChairModels model;
     String Color;
     int count;
-    public ChairFactory(Chair.ChairModels model,String Color, int count) {
+    public ChairFactory(Models.ChairModels model,String Color, int count) {
         this.model = model;
         this.Color = Color;
         this.count = count;

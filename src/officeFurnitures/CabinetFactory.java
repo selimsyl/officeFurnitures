@@ -1,12 +1,10 @@
-package furnitureFactory;
-
-import officeFurnitures.Cabinet;
+package officeFurnitures;
 
 public class CabinetFactory implements Factory {
 
-    Cabinet.CabinetModels model;
+    Models.CabinetModels model;
     int count;
-    public CabinetFactory(Cabinet.CabinetModels model, int count) {
+    public CabinetFactory(Models.CabinetModels model, int count) {
         this.model = model;
         this.count = count;
     }

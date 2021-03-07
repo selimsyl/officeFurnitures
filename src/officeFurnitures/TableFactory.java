@@ -1,12 +1,10 @@
-package furnitureFactory;
-
-import officeFurnitures.Table;
+package officeFurnitures;
 
 public class TableFactory implements Factory {
-    Table.TableModels model;
+    Models.TableModels model;
     String Color;
     int count;
-    public TableFactory(Table.TableModels model,String Color, int count) {
+    public TableFactory(Models.TableModels model,String Color, int count) {
         this.model = model;
         this.Color = Color;
         this.count = count;

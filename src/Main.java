@@ -1,24 +1,26 @@
 //import officeFurnitures.Product.Product.Product;
 
-import furnitureFactory.BookCaseFactory;
-import furnitureFactory.Factory;
-import officeFurnitures.BookCase;
-import officeFurnitures.Furniture;
+import Branches.Branch;
+import officeFurnitures.*;
 
 public class Main {
 
+
     public static void main(String[] args) {
         int[] counts = new int[100];
-        produceFurniture(new BookCaseFactory(BookCase.BookCaseModels.BOOKCASE2,10));
+//        Furniture furniture = makeProduct(new ChairFactory(Models.ChairModels.CHAIR2,"white",1))[0];
+//        Furniture furniture1 = makeProduct(new ChairFactory(Models.ChairModels.CHAIR2,"white",1))[0];
+//
+//        System.out.println(furniture.equals(makeProduct(new ChairFactory(Models.ChairModels.CHAIR2,"black",1))[0]));
+//        System.out.println(furniture.equals(makeProduct(new ChairFactory(Models.ChairModels.CHAIR1,"white",1))[0]));
+//        System.out.println(furniture.equals(makeProduct(new ChairFactory(Models.ChairModels.CHAIR1,"black",1))[0]));
+//        System.out.println(furniture.equals(makeProduct(new ChairFactory(Models.ChairModels.CHAIR2,"white",1))[0]));
+
+
     }
 
-    public static void produceFurniture(Factory factory) {
-        Furniture[] order = factory.createFurniture();
-        for (Furniture ele:order
-             ) {
-            if (BookCase.BookCaseModels.BOOKCASE2 == ele.getModel()) {
-                System.out.println("model found");
-            }
-        }
+    public static Furniture[] makeProduct(Factory factor) {
+        return factor.createFurniture();
     }
+
 }

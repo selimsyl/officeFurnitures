@@ -7,7 +7,5 @@ public class Customers {
     String adress,phoneNumber;
     int customerNumber;
     Furniture[] prevOrders;
-
-
 }
 

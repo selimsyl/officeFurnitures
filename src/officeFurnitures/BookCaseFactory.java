@@ -1,12 +1,10 @@
-package furnitureFactory;
-
-import officeFurnitures.BookCase;
+package officeFurnitures;
 
 public class BookCaseFactory implements Factory {
 
-    BookCase.BookCaseModels model;
+    Models.BookCaseModels model;
     int count;
-    public BookCaseFactory(BookCase.BookCaseModels model, int count) {
+    public BookCaseFactory(Models.BookCaseModels model, int count) {
         this.model = model;
         this.count = count;
     }
