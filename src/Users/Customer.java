@@ -1,11 +1,11 @@
 package Users;
 
-import officeFurnitures.Furniture;
+import officeFurnitures.Product;
 
-public class Customers {
+public class Customer {
     String name,surname,email,password;
     String adress,phoneNumber;
     int customerNumber;
-    Furniture[] prevOrders;
+    Order[] prevOrders;
 }
 
