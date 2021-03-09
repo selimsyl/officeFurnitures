@@ -2,7 +2,7 @@ package Users;
 
 import java.util.Arrays;
 
-public class MyArray<T extends User> {
+public class MyArray<T extends User> extends GenericArray<T> {
     User[] users;
     int size;
     int capacity;

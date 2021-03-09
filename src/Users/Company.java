@@ -7,10 +7,10 @@ import officeFurnitures.Product;
 
 public  class Company {
     static MyArray<Administrators> admins = new MyArray<Administrators>(new Administrators("admin",1));
-    static Employee[] employees = new Employee[4];
-    static Customer[] customer = new Customer[4];
-    static Branch[] branches = new Branch[4];
-    static Order[] orders;
+    MyArray<Employee> employees = MyArray<Employee>(new Employee());
+    MyArray<Customer> customers = MyArray<Customer>(new Customer());
+    MyArray<Order> orders = MyArray<Order>(new Order());
+    Branch[] branches = new Branch[4];
     private static int branchId = 0;
     private static int employeeId = 0;
     private static int adminId = 0;
