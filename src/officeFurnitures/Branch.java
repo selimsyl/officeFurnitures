@@ -1,6 +1,5 @@
 package officeFurnitures;
 
-import Users.Employees;
 
 public class Branch {
     Product[] products;
