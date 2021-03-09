@@ -1,68 +1,79 @@
 package Users;
 
-public class MyArray<T> {
-    T[] product;
+public class MyArray<T extends User> {
+    User[] users;
     int size;
-    final int capacity;
+    int capacity;
 
-    public Array(int capacity) {
-        product = new T[capacity];
-        this.size = 0;
-        this.capacity = capacity;
+    public MyArray() {
+        users = new User[2];
+        size=0;
+        this.capacity=2;
     }
 
-    public boolean add(T[] furnitures) {
-        if (furnitures == null)
-            return false;
+    public void remove(T person) {
+        int index = find(person);
 
-        if (furnitures.length + size > capacity) {
-            System.out.println("Not enough storage capacity");
-            return false;
-        }
+        if (index < 0)
+            return;
 
-        for (int i = 0; i < size; ++i) {
-            product[i] = furnitures[i];
-        }
-        size += furnitures.length;
-        return true;
+        remove(index);
     }
 
-    public T remove(int index) {
-        assert index < size && index > -1;
-
-        T returnFurniture = product[index];
-        T[] temp = new T[capacity];
-
-        for(int i=0;i<size;i++) {
-            if (i == index) {
-                continue;
-            }
-            temp[i] = T[i+1];
-        }
-        product= temp;
-        size--;
-        return returnFurniture;
-    }
-
-    public int find(T desiredFurniture) {
-        for(int i=0; i<size; i++) {
-            if (desiredFurniture.equals(product[i])) {
+    private int find(T person) {
+        for (int i = 0; i < users.length; ++i) {
+            if (person.equals(users[i])) {
                 return i;
             }
         }
         return -1;
     }
 
-//    /**
-//     * @param desiredFurniture
-//     * @return
-//     * If desiredFurniture doesnt found return null
-//     */
-//    public Furniture getFurniture(Furniture desiredFurniture) {
-//        int index = findFurniture(desiredFurniture);
-//        if (index >= 0) {
-//            return product[index];
-//        }
-//        return null;
-//    }
+    @SuppressWarnings("unchecked")
+    public T getUser(T user) {
+        int index = find(user);
+        if (index >= 0)
+            return (T) users[index];
+        
+        return null;
+    }
+
+    public void add(T newPerson) {
+        // double the capacity if all the allocated space is utilized
+        if (size == capacity){
+            increaseCapacity(10);
+        }
+        users[size] = newPerson;
+        size++;
+    }
+
+    public void increaseCapacity(int extraCapacity){
+        User[] temp = new User[capacity+extraCapacity];
+        for (int i=0; i < capacity; i++){
+            temp[i] = users[i];
+        }
+        users = temp;
+        capacity = users.length;
+    }
+
+    private void remove(int index){
+        for(int i=index;i<size-1;i++){
+            users[i] = users[i+1];
+        }
+        users[size-1] = null;
+        size--;
+
+        if (size <= capacity/2) {
+            trimToSize();
+        }
+    }
+
+    public void trimToSize(){
+        User[] temp = new User[size];
+        for (int i=0; i < size; i++){
+            temp[i] = users[i];
+        }
+        users = temp;
+        capacity = users.length;
+    }
 }
