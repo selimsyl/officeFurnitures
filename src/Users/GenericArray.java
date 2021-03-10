@@ -15,10 +15,10 @@ public class GenericArray<T>  {
 
     @SuppressWarnings("unchecked")
     public GenericArray(T[] data) {
-        this.data =  (T[]) new Object[data.length + 10];
+        this.capacity = data.length * 2;
+        this.data =  (T[]) new Object[this.capacity];
         System.arraycopy(data, 0, this.data, 0, data.length);
-        size = this.data.length;
-        this.capacity=this.data.length;
+        size = data.length;
     }
 
     public GenericArray(T data) {
@@ -62,7 +62,6 @@ public class GenericArray<T>  {
     }
 
     public void add(T data) {
-        System.out.println("add");
         if (size == capacity){
             increaseCapacity(2);
         }
@@ -70,15 +69,12 @@ public class GenericArray<T>  {
     }
 
     public int getSize() {
-        return data.length;
+        return size;
     }
 
     private void increaseCapacity(int extraCapacity) {
-        System.out.println("increaseCapacity");
-
         data = Arrays.copyOf(data, capacity*extraCapacity);
         capacity = data.length;
-        System.out.println("increaseCapacity end");
     }
 
     private void remove(int index) {

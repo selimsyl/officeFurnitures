@@ -30,9 +30,7 @@ public class Branch {
     }
 
     public void addEmployee(Employee employee) {
-        System.out.println("addEmployee");
         employees.add(employee);
-        System.out.println("addEmployee");
     }
 
     public void removeEmployee(Employee employee) {
