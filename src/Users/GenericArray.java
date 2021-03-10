@@ -35,6 +35,13 @@ public class GenericArray<T>  {
         return null;
     }
 
+    public T get(int index) {
+        if (index < 0 || index > data.length)
+            throw new ArrayIndexOutOfBoundsException(index);
+
+        return (T) this.data[index];
+    }
+
     public void remove(T data) {
         int index = find(data);
 
@@ -60,6 +67,10 @@ public class GenericArray<T>  {
         }
         this.data[size] = data;
         size++;
+    }
+
+    public int getSize() {
+        return data.length;
     }
 
     private void increaseCapacity(int extraCapacity) {

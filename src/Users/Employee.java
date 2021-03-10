@@ -1,8 +1,13 @@
 package Users;
 
+import officeFurnitures.Branch;
+
 public class Employee extends User {
 
-    Employee(String name, int id,int branchId) {
+    public Employee(String name, int id, int branchId) {
         super(name, id, UserRole.EMPLOYEE);
+        this.branchId = branchId;
     }
+
+    private int branchId;
 }

@@ -5,23 +5,37 @@ import officeFurnitures.Branch;
 import officeFurnitures.Cabinet;
 import officeFurnitures.Product;
 
+import java.net.CookieManager;
+
 public  class Company {
-    public static GenericArray<Administrators> admins = new GenericArray<Administrators>(new Administrators("admin",1));
-    public static GenericArray<Employee> employees = new GenericArray<Employee>(new Employee());
-    public static GenericArray<Customer> customers = new GenericArray<Customer>(new Customer());
-    public static GenericArray<Order> orders = new GenericArray<Order>(new Order());
-    public static GenericArray<Branch> branches = new GenericArray<Branch>(new Branch(createStarterProducts(),branchId++));
+    public static GenericArray<Administrators> admins;// = new GenericArray<Administrators>();
+    public static GenericArray<Customer> customers;// = new GenericArray<Customer>();
+    public static GenericArray<Order> orders;// = new GenericArray<Order>();
+    public static GenericArray<Branch> branches;// = new GenericArray<Branch>();
 
-    public static int branchId = 0;
-    public static int employeeId = 0;
-    public static int adminId = 0;
+    public Company() {
+        admins = new GenericArray<Administrators>((new Administrators("admin1")));
+        branches = new GenericArray<Branch>(new Branch[]{
+            new Branch(createStarterProducts(),getNextBranchId()),
+            new Branch(createStarterProducts(),getNextBranchId()),
+            new Branch(createStarterProducts(),getNextBranchId()),
+            new Branch(createStarterProducts(),getNextBranchId())});
+    }
 
-    public static Branch getBranch(int branchId) {
-        for (Branch branch: branches) {
-            if (branchId == branch.getBranchId())
-                return branch;
-        }
-        return null;
+    private static int branchId = 0;
+    private static int employeeId = 0;
+    private static int adminId = 0;
+
+    public static int getNextBranchId() {
+        return branchId++;
+    }
+
+    public static int getNextEmployeeId() {
+        return employeeId++;
+    }
+
+    public static int getNextAdminId() {
+        return adminId++;
     }
 
     public static Product[] createStarterProducts() {

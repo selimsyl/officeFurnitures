@@ -1,10 +1,5 @@
 package Users;
 
-import factory.ChairFactory;
-import officeFurnitures.Branch;
-
-import static Users.Company.employees;
-
 public abstract class User {
     public enum UserRole {
         ADMIN,
@@ -21,69 +16,10 @@ public abstract class User {
     public int getId() {
         return id;
     }
+    public UserRole getRole() {return role;}
+    public String getName() {return name;}
 
     final private String name;
     final private int id;
     final private UserRole role;
-}
-
-class Administrators extends User {
-    Administrators(String name,int id) {
-        super(name,id,UserRole.ADMIN);
-    }
-
-    void addBranch() {
-        Company.branches.add(new Branch(Company.createStarterProducts(),Company.branchId++));
-//        for (Branch branch: Company.branches) {
-//            if (branch == null) {
-//                branch = new Branch(Company.createStarterProducts(),Company.branchId++);
-//                return;
-//            }
-//        }
-//
-//        Branch[] temp = new Branch[Company.branches.length+1];
-//        for (int i = 0; i < Company.branches.length;++i) {
-//            temp[i] = Company.branches[i];
-//        }
-//
-//        temp[temp.length-1] = new Branch(Company.createStarterProducts(),Company.branchId++);
-//        Company.branches = temp;
-    }
-
-    void removeBranch(Branch branch) {
-        Company.branches.remove(branch);
-//        for (Branch branch:Company.branches) {
-//            if (branch.getBranchId() == branchId) {
-//                branch = null;
-//            }
-//        }
-    }
-
-    void addEmployeeToBranch(Branch branch,String name) {
-        Company.employees.add(new Employee(name,1,branch.getBranchId()));
-
-//        for (Employee Employee: employees) {
-//            if (Employee == null) {
-//                Employee = new Employee();
-//                return;
-//            }
-//        }
-//
-//        Employee[] temp = new Employee[employees.length+1];
-//        for (int i = 0; i < employees.length;++i) {
-//            temp[i] = employees[i];
-//        }
-//
-//        temp[temp.length-1] = new Employee(name,Company.employeeId++,branchId);
-//        employees = temp;
-        
-    }
-
-    void removeEmployeeFromBranch(int employeeId) {
-        for (Employee employee: Company.employees) {
-            if (employee.getId() == employeeId) {
-                employee = null;
-            }
-        }
-    }
 }
