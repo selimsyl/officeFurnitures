@@ -6,14 +6,15 @@ import officeFurnitures.Cabinet;
 import officeFurnitures.Product;
 
 public  class Company {
-    static MyArray<Administrators> admins = new MyArray<Administrators>(new Administrators("admin",1));
-    MyArray<Employee> employees = MyArray<Employee>(new Employee());
-    MyArray<Customer> customers = MyArray<Customer>(new Customer());
-    MyArray<Order> orders = MyArray<Order>(new Order());
-    Branch[] branches = new Branch[4];
-    private static int branchId = 0;
-    private static int employeeId = 0;
-    private static int adminId = 0;
+    public static GenericArray<Administrators> admins = new GenericArray<Administrators>(new Administrators("admin",1));
+    public static GenericArray<Employee> employees = new GenericArray<Employee>(new Employee());
+    public static GenericArray<Customer> customers = new GenericArray<Customer>(new Customer());
+    public static GenericArray<Order> orders = new GenericArray<Order>(new Order());
+    public static GenericArray<Branch> branches = new GenericArray<Branch>(new Branch(createStarterProducts(),branchId++));
+
+    public static int branchId = 0;
+    public static int employeeId = 0;
+    public static int adminId = 0;
 
     public static Branch getBranch(int branchId) {
         for (Branch branch: branches) {

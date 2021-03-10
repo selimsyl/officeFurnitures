@@ -33,45 +33,49 @@ class Administrators extends User {
     }
 
     void addBranch() {
-        for (Branch branch: Company.branches) {
-            if (branch == null) {
-                branch = new Branch(Company.createStarterProducts(),Company.branchId++);
-                return;
-            }
-        }
-
-        Branch[] temp = new Branch[Company.branches.length+1];
-        for (int i = 0; i < Company.branches.length;++i) {
-            temp[i] = Company.branches[i];
-        }
-
-        temp[temp.length-1] = new Branch(Company.createStarterProducts(),Company.branchId++);
-        Company.branches = temp;
+        Company.branches.add(new Branch(Company.createStarterProducts(),Company.branchId++));
+//        for (Branch branch: Company.branches) {
+//            if (branch == null) {
+//                branch = new Branch(Company.createStarterProducts(),Company.branchId++);
+//                return;
+//            }
+//        }
+//
+//        Branch[] temp = new Branch[Company.branches.length+1];
+//        for (int i = 0; i < Company.branches.length;++i) {
+//            temp[i] = Company.branches[i];
+//        }
+//
+//        temp[temp.length-1] = new Branch(Company.createStarterProducts(),Company.branchId++);
+//        Company.branches = temp;
     }
 
-    void removeBranch(int branchId) {
-        for (Branch branch:Company.branches) {
-            if (branch.getBranchId() == branchId) {
-                branch = null;
-            }
-        }
+    void removeBranch(Branch branch) {
+        Company.branches.remove(branch);
+//        for (Branch branch:Company.branches) {
+//            if (branch.getBranchId() == branchId) {
+//                branch = null;
+//            }
+//        }
     }
 
-    void addEmployeeToBranch(int branchId,String name) {
-        for (Employee Employee: employees) {
-            if (Employee == null) {
-                Employee = new Employee();
-                return;
-            }
-        }
+    void addEmployeeToBranch(Branch branch,String name) {
+        Company.employees.add(new Employee(name,1,branch.getBranchId()));
 
-        Employee[] temp = new Employee[employees.length+1];
-        for (int i = 0; i < employees.length;++i) {
-            temp[i] = employees[i];
-        }
-
-        temp[temp.length-1] = new Employee(name,Company.employeeId++,branchId);
-        employees = temp;
+//        for (Employee Employee: employees) {
+//            if (Employee == null) {
+//                Employee = new Employee();
+//                return;
+//            }
+//        }
+//
+//        Employee[] temp = new Employee[employees.length+1];
+//        for (int i = 0; i < employees.length;++i) {
+//            temp[i] = employees[i];
+//        }
+//
+//        temp[temp.length-1] = new Employee(name,Company.employeeId++,branchId);
+//        employees = temp;
         
     }
 
