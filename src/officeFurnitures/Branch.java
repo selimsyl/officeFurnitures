@@ -10,7 +10,8 @@ public class Branch {
 
     public Branch(Product[] products,int branchId) {
         this.branchId = branchId;
-        employees = new GenericArray<Employee>(new Employee("e1", Company.getNextEmployeeId(),branchId));
+        this.products = products;
+        employees = new GenericArray<Employee>();
     }
 
     public Product findFurniture(Product furniture) {
@@ -29,7 +30,9 @@ public class Branch {
     }
 
     public void addEmployee(Employee employee) {
+        System.out.println("addEmployee");
         employees.add(employee);
+        System.out.println("addEmployee");
     }
 
     public void removeEmployee(Employee employee) {

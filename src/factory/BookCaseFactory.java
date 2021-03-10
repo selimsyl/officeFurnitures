@@ -10,7 +10,7 @@ public class BookCaseFactory implements Factory {
 
     @Override
     public BookCase[] createFurniture() {
-        BookCase[] order = new BookCase[BookCase.BookCaseModels.values().length];
+        BookCase[] order = new BookCase[BookCase.BookCaseModels.values().length*Color.values().length];
         int index = 0;
         for (BookCase.BookCaseModels model : BookCase.BookCaseModels.values()) {
             for (Color color : Color.values()) {

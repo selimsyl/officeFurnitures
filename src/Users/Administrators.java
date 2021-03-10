@@ -2,7 +2,7 @@ package Users;
 
 import officeFurnitures.Branch;
 
-class Administrators extends User {
+public class Administrators extends User {
     Administrators(String name) {
         super(name,Company.getNextAdminId(),UserRole.ADMIN);
     }
