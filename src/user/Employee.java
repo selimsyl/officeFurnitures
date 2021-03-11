@@ -1,6 +1,4 @@
-package Users;
-
-import officeFurnitures.Branch;
+package user;
 
 public class Employee extends User {
 

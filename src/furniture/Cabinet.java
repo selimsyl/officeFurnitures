@@ -1,4 +1,4 @@
-package officeFurnitures;
+package furniture;
 
 /**
  * A specific furniture type Cabinet
@@ -48,5 +48,5 @@ public class Cabinet extends Product {
         return model.equals(rhs.model);
     }
 
-    final CabinetModels model;
+    final public CabinetModels model;
 }

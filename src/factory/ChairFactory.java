@@ -1,7 +1,7 @@
 package factory;
 
-import officeFurnitures.Chair;
-import officeFurnitures.Color;
+import furniture.Chair;
+import furniture.Color;
 
 public class ChairFactory implements Factory {
 

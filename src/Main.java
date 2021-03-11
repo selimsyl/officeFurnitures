@@ -1,16 +1,8 @@
 //import officeFurnitures.Product.Product.Product;
 
 
-import Users.Company;
-import Users.Employee;
-import Users.User;
-import officeFurnitures.*;
-
-import java.lang.reflect.Array;
-
-interface Modelo {
-    String getValue();
-}
+import user.Company;
+import user.Employee;
 
 public class Main {
 

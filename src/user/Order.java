@@ -1,6 +1,6 @@
-package Users;
+package user;
 
-import officeFurnitures.Product;
+import furniture.Product;
 
 public class Order {
     int branchId;

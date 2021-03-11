@@ -1,4 +1,4 @@
-package Users;
+package user;
 
 public abstract class User {
     public enum UserRole {

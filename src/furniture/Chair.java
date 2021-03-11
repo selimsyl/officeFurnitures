@@ -1,4 +1,4 @@
-package officeFurnitures;
+package furniture;
 
 /**
  * A specific furniture type Chair

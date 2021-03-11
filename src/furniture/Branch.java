@@ -1,9 +1,8 @@
-package officeFurnitures;
+package furniture;
 
 
-import Users.Company;
-import Users.Employee;
-import Users.GenericArray;
+import user.Employee;
+import user.GenericArray;
 
 public class Branch {
     Product[] products;

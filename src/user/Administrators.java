@@ -1,6 +1,6 @@
-package Users;
+package user;
 
-import officeFurnitures.Branch;
+import furniture.Branch;
 
 public class Administrators extends User {
     Administrators(String name) {

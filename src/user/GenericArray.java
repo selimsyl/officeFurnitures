@@ -1,4 +1,4 @@
-package Users;
+package user;
 
 import java.util.Arrays;
 

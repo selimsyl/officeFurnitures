@@ -1,6 +1,6 @@
 package factory;
 
-import officeFurnitures.Cabinet;
+import furniture.Cabinet;
 
 public class CabinetFactory implements Factory {
 

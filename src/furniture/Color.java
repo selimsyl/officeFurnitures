@@ -1,4 +1,4 @@
-package officeFurnitures;
+package furniture;
 
 public enum Color {
     COLOR1,

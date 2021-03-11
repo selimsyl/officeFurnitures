@@ -1,11 +1,8 @@
-package Users;
+package user;
 
 import factory.*;
-import officeFurnitures.Branch;
-import officeFurnitures.Cabinet;
-import officeFurnitures.Product;
-
-import java.net.CookieManager;
+import furniture.Branch;
+import furniture.Product;
 
 public  class Company {
     public static GenericArray<Administrators> admins;// = new GenericArray<Administrators>();

@@ -1,6 +1,4 @@
-package Users;
-
-import officeFurnitures.Product;
+package user;
 
 public class Customer {
     String name,surname,email,password;

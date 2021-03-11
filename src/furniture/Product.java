@@ -1,4 +1,4 @@
-package officeFurnitures;
+package furniture;
 
 /**
  * Abstract main product class, all products share
