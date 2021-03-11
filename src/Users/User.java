@@ -19,6 +19,8 @@ public abstract class User {
     public UserRole getRole() {return role;}
     public String getName() {return name;}
 
+
+
     final private String name;
     final private int id;
     final private UserRole role;

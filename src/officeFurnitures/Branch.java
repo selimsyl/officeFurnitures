@@ -7,11 +7,11 @@ import Users.GenericArray;
 
 public class Branch {
     Product[] products;
+    GenericArray<Product> productsNeedToBeSuplied = new GenericArray<Product>();
 
     public Branch(Product[] products,int branchId) {
         this.branchId = branchId;
         this.products = products;
-        employees = new GenericArray<Employee>();
     }
 
     public Product findFurniture(Product furniture) {
@@ -29,19 +29,22 @@ public class Branch {
         return branchId;
     }
 
-    public void addEmployee(Employee employee) {
-        employees.add(employee);
+    public void updateproductsNeedToBeSuplied(Product product,int operation)
+    {
+        if (operation > 0) {//increase
+            productsNeedToBeSuplied.add(product);
+        } else {//decrease
+            productsNeedToBeSuplied.remove(product);
+        }
     }
 
-    public void removeEmployee(Employee employee) {
-        employees.remove(employee);
+    public GenericArray<Product> getproductsNeedToBeSuplied() {
+        return productsNeedToBeSuplied;
     }
 
-    public int getEmployeeCount() {
-        return employees.getSize();
+    public void listProducts() {
+
     }
 
     final private int branchId;
-
-    private GenericArray<Employee> employees;
 }

@@ -2,10 +2,10 @@ package Users;
 
 import java.util.Arrays;
 
-public class GenericArray<T>  {
-    T[] data;
-    int size;
-    int capacity = 10;
+public class GenericArray<T> {
+    protected T[] data;
+    protected int size;
+    protected int capacity = 10;
 
     @SuppressWarnings("unchecked")
     public GenericArray() {
@@ -70,6 +70,10 @@ public class GenericArray<T>  {
 
     public int getSize() {
         return size;
+    }
+
+    public T[] getDataArray() {
+        return data;
     }
 
     private void increaseCapacity(int extraCapacity) {

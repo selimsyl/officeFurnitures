@@ -5,13 +5,11 @@ import officeFurnitures.Branch;
 import officeFurnitures.Cabinet;
 import officeFurnitures.Product;
 
-import java.net.CookieManager;
-
 public  class Company {
     public static GenericArray<Administrators> admins;// = new GenericArray<Administrators>();
     public static GenericArray<Customer> customers;// = new GenericArray<Customer>();
-    public static GenericArray<Order> orders;// = new GenericArray<Order>();
     public static GenericArray<Branch> branches;// = new GenericArray<Branch>();
+    public static GenericArray<Employee> employees;
 
     public Company() {
         admins = new GenericArray<Administrators>((new Administrators("admin1")));
@@ -20,11 +18,17 @@ public  class Company {
             new Branch(createStarterProducts(),getNextBranchId()),
             new Branch(createStarterProducts(),getNextBranchId()),
             new Branch(createStarterProducts(),getNextBranchId())});
+
+        employees = new GenericArray<Employee>();
+        for (int i = 0; i < branches.getSize(); ++i) {
+            employees.add(new Employee("akan",getNextEmployeeId(),branches.get(i)));
+        }
     }
 
     private static int branchId = 0;
     private static int employeeId = 0;
     private static int adminId = 0;
+    private static int customerId = 0;
 
     public static int getNextBranchId() {
         return branchId++;
@@ -34,8 +38,27 @@ public  class Company {
         return employeeId++;
     }
 
+    /**
+     * @return
+     */
     public static int getNextAdminId() {
         return adminId++;
+    }
+
+    public static int getNextCustomerId() {
+        return customerId++;
+    }
+
+    public void listEmployees() {
+
+    }
+
+    public void listBranches() {
+
+    }
+
+    public void listCustomers() {
+
     }
 
     public static Product[] createStarterProducts() {
@@ -51,5 +74,4 @@ public  class Company {
         }
         return products;
     }
-
 }
