@@ -6,23 +6,24 @@ import officeFurnitures.Cabinet;
 import officeFurnitures.Product;
 
 public  class Company {
-    public static GenericArray<Administrators> admins;// = new GenericArray<Administrators>();
-    public static GenericArray<Customer> customers;// = new GenericArray<Customer>();
-    public static GenericArray<Branch> branches;// = new GenericArray<Branch>();
+    public static GenericArray<Administrators> admins;
+    public static GenericArray<Customer> customers;
+    public static GenericArray<Branch> branches;
     public static GenericArray<Employee> employees;
 
     public Company() {
         admins = new GenericArray<Administrators>((new Administrators("admin1")));
         branches = new GenericArray<Branch>(new Branch[]{
-            new Branch(createStarterProducts(),getNextBranchId(),"Tokyo"),
-            new Branch(createStarterProducts(),getNextBranchId(),"Dali"),
-            new Branch(createStarterProducts(),getNextBranchId(),"Berlin"),
-            new Branch(createStarterProducts(),getNextBranchId(),"Oslo")});
+            new Branch(createStarterProducts(),getNextBranchId()),
+            new Branch(createStarterProducts(),getNextBranchId()),
+            new Branch(createStarterProducts(),getNextBranchId()),
+            new Branch(createStarterProducts(),getNextBranchId())});
 
         employees = new GenericArray<Employee>();
         for (int i = 0; i < branches.getSize(); ++i) {
             employees.add(new Employee("akan",getNextEmployeeId(),branches.get(i)));
         }
+        customers =new GenericArray<Customer>(new Customer("customer1","customer1","email","pw",getNextCustomerId()));
     }
 
     private static int branchId = 0;
@@ -49,31 +50,51 @@ public  class Company {
         return customerId++;
     }
 
-    public void listEmployees() {
-        for (Employee employee:Company.employees.getDataArray()) {
-            System.out.println(employee.getName());
+    public static void listEmployees() {
+        for (int i = 0; i < Company.employees.getSize(); ++i) {
+            System.out.print(i + ". ");
+            System.out.println(Company.employees.get(i).getName());
         }
     }
 
-    public void listBranches() {
-        for (Branch branch:Company.branches.getDataArray()) {
-            System.out.println(branch.getBranchName());
+    public static void listBranches() {
+        System.out.println("1 ile " + Integer.toString(Company.branches.getSize()) +
+                " arasinda Branch bulunmaktadir ");
+    }
+
+    public static void listCustomers() {
+        for (int i = 0; i < Company.customers.getSize(); ++i) {
+            System.out.println(Company.customers.get(i).getName() +
+                   " " + Company.customers.get(i).getEmail());
         }
     }
 
-    public void listCustomers() {
-        for (Customer customer:Company.customers.getDataArray()) {
-            System.out.println(customer.getName());
+    public static void listProducts() {
+        for (int i = 0; i < Company.branches.getSize(); ++i) {
+            Company.branches.get(i).listProducts();
         }
+    }
+
+    public static void addCustomer(Customer customer) {
+        customers.add(customer);
+    }
+
+    public static boolean searchCustomer(Customer customer) {
+        for (int i = 0; i < customers.getSize(); ++i) {
+            if (customer.equals(customers.get(i))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static Product[] createStarterProducts() {
         Factory[] factories = new Factory[]{new ChairFactory(),new DeskFactory(),
-                                    new CabinetFactory(),new BookCaseFactory()};
+                                    new CabinetFactory(),new BookCaseFactory(),new TableFactory()};
 
         Product[] products = new Product[119];
+        int index = 0;
         for (Factory factory : factories) {
-            int index = 0;
             for (Product product:factory.createFurniture()) {
                 products[index++] = product;
             }

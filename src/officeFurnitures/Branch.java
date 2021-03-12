@@ -9,17 +9,16 @@ public class Branch {
     Product[] products;
     GenericArray<Product> productsNeedToBeSuplied = new GenericArray<Product>();
 
-    public Branch(Product[] products,int branchId,String branchName) {
+    public Branch(Product[] products,int branchId) {
         this.branchId = branchId;
         this.products = products;
-        this.branchName = branchName;
     }
 
     public Product findFurniture(Product furniture) {
-        for (Product kik : products) {
-            if(kik.getUnitInStock() > 0) {
-                if (furniture.equals(kik)) {
-                    return kik;
+        for (Product product : products) {
+            if(product.getUnitInStock() > 0) {
+                if (furniture.equals(product)) {
+                    return product;
                 }
             }
         }
@@ -44,13 +43,17 @@ public class Branch {
     }
 
     public void listProducts() {
-
+        System.out.println("Producst in Strore ID : " + branchId);
+        for (Product product: products) {
+//            System.out.println(product.getUnitInStock());
+            if (product.getUnitInStock() != 0)
+                System.out.println(product.getModelName());
+        }
     }
 
-    public String getBranchName() {
-        return branchName;
+    public int getProductCount() {
+        return products.length;
     }
 
     final private int branchId;
-    final String branchName;
 }

@@ -2,6 +2,7 @@ package officeFurnitures;
 
 public class BookCase extends Product {
 
+
     public enum BookCaseModels implements Model {
         BOOKCASE1("BOOKCASE1"),BOOKCASE2("BOOKCASE2"),BOOKCASE3("BOOKCASE3"),BOOKCASE4("BOOKCASE4"),
         BOOKCASE5("BOOKCASE5"),BOOKCASE6("BOOKCASE6"),BOOKCASE7("BOOKCASE7"),BOOKCASE8("BOOKCASE8"),
@@ -18,12 +19,14 @@ public class BookCase extends Product {
         }
     }
 
-    /**
-     * @param color Chair Color
-     */
-    public BookCase(BookCaseModels model,Color color) {
+    public BookCase(BookCaseModels model,int stockCount) {
+        super(stockCount);
         this.model = model;
-        this.color = color;
+    }
+
+    @Override
+    public String getModelName() {
+        return  model.getName();
     }
 
     @Override
@@ -38,13 +41,11 @@ public class BookCase extends Product {
 
         BookCase rhs = (BookCase) obj;
 
-        return model.equals(rhs.model)
-                && color.equals(rhs.color);
+        return model.equals(rhs.model);
     }
 
-    @Override
-    public Model getModel() {return model;}
+//    @Override
+//    public Model getModel() {return model;}
 
     final private BookCaseModels model;
-    final private Color color;
 }

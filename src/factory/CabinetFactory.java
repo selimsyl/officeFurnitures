@@ -11,8 +11,9 @@ public class CabinetFactory implements Factory {
         Cabinet[] order = new Cabinet[Cabinet.CabinetModels.values().length];
         int index = 0;
         for (Cabinet.CabinetModels model : Cabinet.CabinetModels.values()) {
-                order[index++] = new Cabinet(model);
+                order[index++] = new Cabinet(model,10);
         }
+
         return order;
     }
 }

@@ -9,13 +9,13 @@ public class Administrators extends User {
     }
 
     public void addBranch() {
-        Company.branches.add(new Branch(Company.createStarterProducts(),Company.getNextBranchId(),"Paris"));
+        Company.branches.add(new Branch(Company.createStarterProducts(),Company.getNextBranchId()));
     }
 
     public void removeBranch(Branch branch) {
-        for (Employee employee:Company.employees.getDataArray()) {
-            if (employee.whereIWork().equals(branch)){
-                Company.employees.remove(employee);
+        for (int i = 0; i < Company.employees.getSize(); ++i) {
+            if (Company.employees.get(i).whereIWork().equals(branch)){
+                Company.employees.remove(Company.employees.get(i));
             }
         }
         Company.branches.remove(branch);
@@ -30,10 +30,11 @@ public class Administrators extends User {
     }
 
     public void queryProductsNeedToBeSuplied() {
-        for (Branch branch:Company.branches.getDataArray()) {
-            for (Product product:branch.getproductsNeedToBeSuplied().getDataArray()) {
-                product.increaseUnitInStock(10);
+        for (int i=0; i < Company.branches.getSize(); ++i) {
+            for (int k = 0; k < Company.branches.get(i).getproductsNeedToBeSuplied().getSize(); ++k){
+                Company.branches.get(i).getproductsNeedToBeSuplied().get(k).increaseUnitInStock(10);
             }
+
         }
     }
 }

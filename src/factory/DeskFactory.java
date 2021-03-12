@@ -11,13 +11,14 @@ public class DeskFactory implements Factory {
     @Override
     public Desk[] createFurniture() {
 
-        Desk[] order = new Desk[Desk.DeskModels.values().length*Color.values().length];
+        Desk[] order = new Desk[Desk.DeskModels.values().length * 4];
         int index = 0;
         for (Desk.DeskModels model : Desk.DeskModels.values()) {
-            for (Color color : Color.values()) {
-                order[index++] = new Desk(model, color);
+            for (Desk.Color color : Desk.Color.values()) {
+                order[index++] = new Desk(model, color,10);
             }
         }
+
         return order;
     }
 }

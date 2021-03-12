@@ -91,7 +91,7 @@ public class GenericArray<T> {
             data[i] = data[i+1];
         }
 
-        data[size-1] = null;
+//        data[size-1] = null;
         size--;
 
         if (size <= capacity/2) {

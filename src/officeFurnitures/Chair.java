@@ -5,6 +5,14 @@ package officeFurnitures;
  */
 public class Chair extends Product {
 
+    public enum Color {
+        COLOR1,
+        COLOR2,
+        COLOR3,
+        COLOR4,
+        COLOR5,
+    }
+
     public enum ChairModels implements Model {
         CHAIR1("CHAIR1"),CHAIR2("CHAIR2"),CHAIR3("CHAIR3"),
         CHAIR4("CHAIR4"),CHAIR5("CHAIR5"),CHAIR6("CHAIR6"),CHAIR7("CHAIR7");
@@ -20,14 +28,19 @@ public class Chair extends Product {
         }
     }
 
-    public Chair(ChairModels model, Color color,int stockCount) {
-        this.model = model;
-        this.color = color;
-        this.unitInStock = stockCount;
+    @Override
+    public String getModelName() {
+        return  model.getName();
     }
 
-    @Override
-    public Model getModel() {return model;}
+    public Chair(ChairModels model, Color color,int stockCount) {
+        super(stockCount);
+        this.model = model;
+        this.color = color;
+    }
+
+//    @Override
+//    public Model getModel() {return model;}
 
     @Override
     public boolean equals(Object obj) {

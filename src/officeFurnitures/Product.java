@@ -6,7 +6,12 @@ package officeFurnitures;
 public abstract class Product {
     int unitInStock;
 
-    public abstract Model getModel();
+//    public abstract Model getModel();
+    public abstract String getModelName();
+
+    public Product(int stockCount) {
+        this.unitInStock = stockCount;
+    }
 
     public int getUnitInStock() {return unitInStock;}
     public void increaseUnitInStock() {++unitInStock;}

@@ -32,7 +32,8 @@ public class Employee extends User {
 
     public boolean removeProduct(Product product,int count) {
         Product refProduct = myBranch.findFurniture(product);
-
+        if (refProduct == null)
+            return false;
         if (refProduct.getUnitInStock() < count) {
             myBranch.updateproductsNeedToBeSuplied(refProduct, 0);
             return false;
@@ -42,6 +43,10 @@ public class Employee extends User {
 
         refProduct.decreaseUnitInStock(count);
         return true;
+    }
+
+    public void addCustomer(Customer customer) {
+        Company.addCustomer(customer);
     }
 
     public Branch whereIWork() {

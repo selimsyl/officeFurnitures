@@ -5,6 +5,13 @@ package officeFurnitures;
  */
 public class Desk extends Product {
 
+    public enum Color {
+        COLOR1,
+        COLOR2,
+        COLOR3,
+        COLOR4,
+    }
+
     public enum DeskModels implements Model {
         DESK1("DESK1"),DESK2("DESK2"),DESK3("DESK3"),DESK4("DESK4"),DESK5("DESK5");
 
@@ -23,15 +30,20 @@ public class Desk extends Product {
      * @param model Chair Model Type
      * @param color Chair Color
      */
-    public Desk(DeskModels model, Color color) {
-        super();
+    public Desk(DeskModels model, Color color, int stockCount) {
+        super(stockCount);
         this.model = model;
         this.color = color;
     }
 
+//    @Override
+//    public DeskModels getModel() {
+//        return (DeskModels) model;
+//    }
+
     @Override
-    public DeskModels getModel() {
-        return (DeskModels) model;
+    public String getModelName() {
+        return  model.getName();
     }
 
     @Override

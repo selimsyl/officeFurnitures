@@ -3,7 +3,14 @@ package officeFurnitures;
 /**
  * A specific furniture type Table
  */
-class Table extends Product {
+public class Table extends Product {
+
+    public enum Color {
+        COLOR1,
+        COLOR2,
+        COLOR3,
+        COLOR4,
+    }
 
     public enum TableModels implements Model {
         TABLE1("TABLE1"),TABLE2("TABLE2"),TABLE3("TABLE3"),TABLE4("TABLE4"),TABLE5("TABLE5"),
@@ -23,15 +30,20 @@ class Table extends Product {
     /**
      * @param model Chair Model Type
      */
-    public Table(TableModels model, String color) {
-        super();
+    public Table(TableModels model, Color color,int stockCount) {
+        super(stockCount);
         this.color = color;
         this.model = model;
     }
 
+//    @Override
+//    public TableModels getModel() {
+//        return model;
+//    }
+
     @Override
-    public TableModels getModel() {
-        return model;
+    public String getModelName() {
+        return  model.getName();
     }
 
     @Override
@@ -51,5 +63,5 @@ class Table extends Product {
     }
 
     final TableModels model;
-    private final String color;
+    private final Color color;
 }

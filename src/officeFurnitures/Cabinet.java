@@ -24,14 +24,21 @@ public class Cabinet extends Product {
     /**
      * @param model Chair Model Type
      */
-    public Cabinet(CabinetModels model) {
+    public Cabinet(CabinetModels model,int stockCount) {
+        super(stockCount);
         this.model = model;
     }
 
+//    @Override
+//    public CabinetModels getModel() {
+//        return model;
+//    }
+
     @Override
-    public CabinetModels getModel() {
-        return model;
+    public String getModelName() {
+        return  model.getName();
     }
+
 
     @Override
     public boolean equals(Object obj) {
