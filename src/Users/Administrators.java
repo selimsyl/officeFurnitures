@@ -9,7 +9,7 @@ public class Administrators extends User {
     }
 
     public void addBranch() {
-        Company.branches.add(new Branch(Company.createStarterProducts(),Company.getNextBranchId()));
+        Company.branches.add(new Branch(Company.createStarterProducts(),Company.getNextBranchId(),"Paris"));
     }
 
     public void removeBranch(Branch branch) {

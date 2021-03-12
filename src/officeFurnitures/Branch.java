@@ -9,9 +9,10 @@ public class Branch {
     Product[] products;
     GenericArray<Product> productsNeedToBeSuplied = new GenericArray<Product>();
 
-    public Branch(Product[] products,int branchId) {
+    public Branch(Product[] products,int branchId,String branchName) {
         this.branchId = branchId;
         this.products = products;
+        this.branchName = branchName;
     }
 
     public Product findFurniture(Product furniture) {
@@ -46,5 +47,10 @@ public class Branch {
 
     }
 
+    public String getBranchName() {
+        return branchName;
+    }
+
     final private int branchId;
+    final String branchName;
 }

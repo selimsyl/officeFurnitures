@@ -14,10 +14,10 @@ public  class Company {
     public Company() {
         admins = new GenericArray<Administrators>((new Administrators("admin1")));
         branches = new GenericArray<Branch>(new Branch[]{
-            new Branch(createStarterProducts(),getNextBranchId()),
-            new Branch(createStarterProducts(),getNextBranchId()),
-            new Branch(createStarterProducts(),getNextBranchId()),
-            new Branch(createStarterProducts(),getNextBranchId())});
+            new Branch(createStarterProducts(),getNextBranchId(),"Tokyo"),
+            new Branch(createStarterProducts(),getNextBranchId(),"Dali"),
+            new Branch(createStarterProducts(),getNextBranchId(),"Berlin"),
+            new Branch(createStarterProducts(),getNextBranchId(),"Oslo")});
 
         employees = new GenericArray<Employee>();
         for (int i = 0; i < branches.getSize(); ++i) {
@@ -50,15 +50,21 @@ public  class Company {
     }
 
     public void listEmployees() {
-
+        for (Employee employee:Company.employees.getDataArray()) {
+            System.out.println(employee.getName());
+        }
     }
 
     public void listBranches() {
-
+        for (Branch branch:Company.branches.getDataArray()) {
+            System.out.println(branch.getBranchName());
+        }
     }
 
     public void listCustomers() {
-
+        for (Customer customer:Company.customers.getDataArray()) {
+            System.out.println(customer.getName());
+        }
     }
 
     public static Product[] createStarterProducts() {
