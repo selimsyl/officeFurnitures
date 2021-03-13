@@ -5,6 +5,10 @@ package officeFurnitures;
  */
 public class Cabinet extends Product {
 
+    @Override
+    public String getColor() {
+        return "";
+    }
     public enum CabinetModels implements Model {
         CABINET1("CABINET1"),CABINET2("CABINET2"),CABINET3("CABINET3"),CABINET4("CABINET4"),
         CABINET5("CABINET5"),CABINET6("CABINET6"),CABINET7("CABINET7"),CABINET8("CABINET8"),

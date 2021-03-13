@@ -15,15 +15,13 @@ public  class Company {
         admins = new GenericArray<Administrators>((new Administrators("admin1")));
         branches = new GenericArray<Branch>(new Branch[]{
             new Branch(createStarterProducts(),getNextBranchId()),
-            new Branch(createStarterProducts(),getNextBranchId()),
-            new Branch(createStarterProducts(),getNextBranchId()),
             new Branch(createStarterProducts(),getNextBranchId())});
 
         employees = new GenericArray<Employee>();
         for (int i = 0; i < branches.getSize(); ++i) {
             employees.add(new Employee("akan",getNextEmployeeId(),branches.get(i)));
         }
-        customers =new GenericArray<Customer>(new Customer("customer1","customer1","email","pw",getNextCustomerId()));
+        customers =new GenericArray<Customer>(new Customer("Murat","Kala","email","pw",getNextCustomerId()));
     }
 
     private static int branchId = 0;

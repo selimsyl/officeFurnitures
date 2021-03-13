@@ -22,13 +22,13 @@ public class Driver {
 
     Customer consoleCustomerInput(String inputWay) {
         if (inputWay.startsWith("First"))
-            return new Customer("n1","sn1","mail","pw",Company.getNextCustomerId());
+            return new Customer("Hakan","Muhafiz","mail","pw",Company.getNextCustomerId());
         else
             return Company.customers.get(0);
     }
 
     Product customerSelectProduct() {
-        return new Chair(Chair.ChairModels.CHAIR1, Chair.Color.COLOR3,12);
+        return new Chair(Chair.ChairModels.CHAIR1, Chair.Color.BLUE,12);
     }
 
     Employee systemEmployeeAssign() {
@@ -36,28 +36,22 @@ public class Driver {
     }
 
     Product consoleInputProduct() {
-        return new Chair(Chair.ChairModels.CHAIR1,Chair.Color.COLOR3,12);
+        return new Chair(Chair.ChairModels.CHAIR1,Chair.Color.PURPLE,12);
     }
 
     void administratorsDriver() {
         Administrators admin = consoleAdminInput();
-        for (int i = 0; i < 3; ++i)
-            admin.addBranch();
-
-//        admin.removeBranch(consoleBranchInput());
-
+        admin.addBranch();
+        admin.removeBranch(consoleBranchInput());
         admin.addEmployeeToBranch(consoleBranchInput(), "HardWorker");
         admin.addEmployeeToBranch(consoleBranchInput(), "LooseWorker");
-//        admin.removeEmployeeFromBranch(consoleEmployeeInput());
-//        admin.removeBranch(consoleBranchInput());
-
+        admin.removeEmployeeFromBranch(consoleEmployeeInput());
         admin.queryProductsNeedToBeSuplied();
     }
 
     void branchDriver() {
         Branch branch = consoleBranchInput();
-        Chair product = (Chair)branch.findFurniture(new Chair(Chair.ChairModels.CHAIR1,Chair.Color.COLOR1,10));
-        System.out.println(product.getModelName());
+        Chair product = (Chair)branch.findFurniture(new Chair(Chair.ChairModels.CHAIR1,Chair.Color.RED,10));
     }
 
     void customerDriver(String inputWay) {

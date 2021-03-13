@@ -6,10 +6,15 @@ package officeFurnitures;
 public class Table extends Product {
 
     public enum Color {
-        COLOR1,
-        COLOR2,
-        COLOR3,
-        COLOR4,
+        WHITE,
+        BLACK,
+        PINK,
+        OLIVE,
+    }
+
+    @Override
+    public String getColor() {
+        return color.toString();
     }
 
     public enum TableModels implements Model {

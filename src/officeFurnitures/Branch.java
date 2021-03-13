@@ -43,12 +43,24 @@ public class Branch {
     }
 
     public void listProducts() {
+        Product printedPrevProduct = null;
         System.out.println("Producst in Strore ID : " + branchId);
         for (Product product: products) {
-//            System.out.println(product.getUnitInStock());
-            if (product.getUnitInStock() != 0)
-                System.out.println(product.getModelName());
+            if (product.getUnitInStock() != 0) {
+                if (printedPrevProduct != null &&
+                        !product.getModelName().equals(printedPrevProduct.getModelName()))
+                    System.out.println();
+
+                System.out.print("["+product.getModelName() + "(" + product.getUnitInStock() + ")");
+                String color = product.getColor();
+                if (!color.equals(""))
+                    System.out.print (color);
+
+                System.out.print ("]");
+                printedPrevProduct = product;
+            }
         }
+        System.out.println();
     }
 
     public int getProductCount() {

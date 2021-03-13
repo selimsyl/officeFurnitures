@@ -6,11 +6,16 @@ package officeFurnitures;
 public class Chair extends Product {
 
     public enum Color {
-        COLOR1,
-        COLOR2,
-        COLOR3,
-        COLOR4,
-        COLOR5,
+        BLUE,
+        PURPLE,
+        RED,
+        BLACK,
+        YELLOW,
+    }
+
+    @Override
+    public String getColor() {
+        return color.toString();
     }
 
     public enum ChairModels implements Model {

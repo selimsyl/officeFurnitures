@@ -10,7 +10,7 @@ public class ChairFactory implements Factory {
     @Override
     public Chair[] createFurniture() {
 
-        Chair[] order = new Chair[Chair.ChairModels.values().length*Color.values().length];
+        Chair[] order = new Chair[Chair.ChairModels.values().length*Chair.Color.values().length];
         int index = 0;
         for (Chair.ChairModels model : Chair.ChairModels.values()) {
             for (Chair.Color color : Chair.Color.values()) {

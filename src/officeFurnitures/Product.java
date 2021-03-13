@@ -8,7 +8,7 @@ public abstract class Product {
 
 //    public abstract Model getModel();
     public abstract String getModelName();
-
+    public abstract String getColor();
     public Product(int stockCount) {
         this.unitInStock = stockCount;
     }

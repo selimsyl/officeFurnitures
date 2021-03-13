@@ -6,10 +6,10 @@ package officeFurnitures;
 public class Desk extends Product {
 
     public enum Color {
-        COLOR1,
-        COLOR2,
-        COLOR3,
-        COLOR4,
+        BROWN,
+        ORANGE,
+        GRAY,
+        GREEN,
     }
 
     public enum DeskModels implements Model {
@@ -36,10 +36,10 @@ public class Desk extends Product {
         this.color = color;
     }
 
-//    @Override
-//    public DeskModels getModel() {
-//        return (DeskModels) model;
-//    }
+    @Override
+    public String getColor() {
+        return color.toString();
+    }
 
     @Override
     public String getModelName() {

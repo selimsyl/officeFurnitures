@@ -2,6 +2,10 @@ package officeFurnitures;
 
 public class BookCase extends Product {
 
+    @Override
+    public String getColor() {
+        return "";
+    }
 
     public enum BookCaseModels implements Model {
         BOOKCASE1("BOOKCASE1"),BOOKCASE2("BOOKCASE2"),BOOKCASE3("BOOKCASE3"),BOOKCASE4("BOOKCASE4"),
