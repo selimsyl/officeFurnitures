@@ -4,42 +4,42 @@ import Users.Customer;
 import Users.Employee;
 import officeFurnitures.Branch;
 import officeFurnitures.Chair;
-import officeFurnitures.Color;
 import officeFurnitures.Product;
 
 public class Driver {
-    Administrators consoleAdminInput() {
+    static Administrators consoleAdminInput() {
         return Company.admins.get(0);
     }
 
-    Branch consoleBranchInput() {
+    static Branch consoleBranchInput() {
         return Company.branches.get(0);
     }
 
-    Employee consoleEmployeeInput() {
+    static Employee consoleEmployeeInput() {
         return Company.employees.get(0);
     }
 
-    Customer consoleCustomerInput(String inputWay) {
+    static Customer consoleCustomerInput(String inputWay) {
         if (inputWay.startsWith("First"))
             return new Customer("Hakan","Muhafiz","mail","pw",Company.getNextCustomerId());
         else
             return Company.customers.get(0);
     }
 
-    Product customerSelectProduct() {
+    static Product customerSelectProduct() {
         return new Chair(Chair.ChairModels.CHAIR1, Chair.Color.BLUE,12);
     }
 
-    Employee systemEmployeeAssign() {
+    static Employee systemEmployeeAssign() {
         return Company.employees.get(0);
     }
 
-    Product consoleInputProduct() {
+    static Product consoleInputProduct() {
         return new Chair(Chair.ChairModels.CHAIR1,Chair.Color.PURPLE,12);
     }
 
-    void administratorsDriver() {
+    static void  administratorsDriver() {
+        System.out.println("-----Administrator, Driver Operations Start-----");
         Administrators admin = consoleAdminInput();
         admin.addBranch();
         admin.removeBranch(consoleBranchInput());
@@ -47,54 +47,69 @@ public class Driver {
         admin.addEmployeeToBranch(consoleBranchInput(), "LooseWorker");
         admin.removeEmployeeFromBranch(consoleEmployeeInput());
         admin.queryProductsNeedToBeSuplied();
+        System.out.println("-----Administrator, Driver Operations End-----");
     }
 
-    void branchDriver() {
+    static void  branchDriver() {
+        System.out.println("-----Branch, Driver Operations Start-----");
         Branch branch = consoleBranchInput();
         Chair product = (Chair)branch.findFurniture(new Chair(Chair.ChairModels.CHAIR1,Chair.Color.RED,10));
+        System.out.println("-----Branch, Driver Operations End-----");
+
     }
 
-    void customerDriver(String inputWay) {
+    static void  customerDriver(String inputWay) {
         Customer customer;
         if (inputWay.startsWith("First")) {
+            System.out.println("-----Customer First Time, Driver Operations-----");
             customer = consoleCustomerInput(inputWay);
-            company.addCustomer(customer);
+            Company.addCustomer(customer);
         } else {
+            System.out.println("-----Customer Already Registered, Driver Operations-----");
             customer = consoleCustomerInput(inputWay);
             try {
-                if (company.searchCustomer(customer))
-                    throw new Exception("Kayitli degilsiniz, kayit olunuz");
+                if (Company.searchCustomer(customer))
+                    throw new Exception("You need to create new customer account to log in");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
+                return;
             }
         }
 
-        company.listProducts();
+        Company.listProducts();
         customer.setAdress("adress");
         customer.setPhoneNumber("phoneNumber");
         Employee employeeBySystem0 = systemEmployeeAssign();
-        employeeBySystem0.makeSell(customerSelectProduct(),customer,10);
+        if(!employeeBySystem0.makeSell(customerSelectProduct(),customer,32))
+            System.out.println("!!!There is no enough amount of product!!!");
+        else
+            System.out.println("Your order has been successfully received");
+
         customer.getPrevOrders();
     }
 
-    void employeeDriver() {
+    static void  employeeDriver() {
+        System.out.println("-----Employeee, Driver Operations Start-----");
         Employee employee = consoleEmployeeInput();
         employee.addProduct(consoleInputProduct(),5);
         employee.removeProduct(consoleInputProduct(),1);
         employee.makeSell(customerSelectProduct(),consoleCustomerInput("Firs Time"),3);
         employee.getUserPrevOrder(consoleCustomerInput("Already Registered"));
+        System.out.println("-----Employeee, Driver Operations End-----");
     }
 
-    public void run() throws Exception {
-        company = new Company();
-        administratorsDriver();
-        branchDriver();
-        customerDriver("First Time Shopping");
-        customerDriver("Already Registered");
-
-//        employeeDriver();
-
+    static public  void run() throws Exception {
+        Driver driver = new Driver();
+        try {
+            Company.init();
+            administratorsDriver();
+            branchDriver();
+            customerDriver("First Time Shopping");
+            customerDriver("Already Registered");
+            employeeDriver();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
-
-    Company company;
 }

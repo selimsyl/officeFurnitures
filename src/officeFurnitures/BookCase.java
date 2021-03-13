@@ -48,8 +48,5 @@ public class BookCase extends Product {
         return model.equals(rhs.model);
     }
 
-//    @Override
-//    public Model getModel() {return model;}
-
     final private BookCaseModels model;
 }

@@ -17,10 +17,12 @@ public class Employee extends User {
 
         Order order = new Order(myBranch,customer,this,product,count);
         customer.addPrevOrder(order);
+        System.out.println("Employee succesfully made a sell to " + customer.getName());
         return true;
     }
 
     public void getUserPrevOrder(Customer customer) {
+        System.out.println("Employee listing " + customer.getName() + " previous products");
         customer.getPrevOrders();
     }
 
@@ -28,6 +30,9 @@ public class Employee extends User {
         Product refProduct = myBranch.findFurniture(product);
         refProduct.increaseUnitInStock();
         myBranch.updateproductsNeedToBeSuplied(product,1);
+        System.out.println("Employee Succesfully added below prodoct");
+        product.printProductInfo();
+        System.out.println("to Work Branch");
     }
 
     public boolean removeProduct(Product product,int count) {
@@ -40,13 +45,19 @@ public class Employee extends User {
         } else if (refProduct.getUnitInStock() == count) {
             myBranch.updateproductsNeedToBeSuplied(refProduct, 0);
         }
-
+        System.out.println("Employee succesfully removed below prodoct");
+        product.printProductInfo();
         refProduct.decreaseUnitInStock(count);
+        System.out.println("from Work Branch");
+
         return true;
     }
 
     public void addCustomer(Customer customer) {
         Company.addCustomer(customer);
+        System.out.println("Employee succesfully added below customer");
+        customer.printInfo();
+        System.out.println("to system");
     }
 
     public Branch whereIWork() {

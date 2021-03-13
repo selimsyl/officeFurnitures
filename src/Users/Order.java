@@ -12,11 +12,10 @@ public class Order {
         this.productCount = count;
     }
 
-    public void print() {
+    public void printInfo() {
         System.out.println("------------Order Info------------");
-        System.out.println(product.getModelName());
-        System.out.println(productCount);
-        System.out.println("------------Order Info------------");
+        product.printProductInfo();
+        System.out.println("------------En of Order Info------------");
     }
     Branch branch;
     Customer customer;

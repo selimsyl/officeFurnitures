@@ -19,6 +19,13 @@ public abstract class User {
     public UserRole getRole() {return role;}
     public String getName() {return name;}
 
+    public void printInfo() {
+        System.out.println("---User Info---");
+        System.out.println("Id   : "+id);
+        System.out.println("Name : "+name);
+        System.out.println("UserRole : " +role.toString());
+        System.out.println("---En of User Info---");
+    }
 
 
     final private String name;

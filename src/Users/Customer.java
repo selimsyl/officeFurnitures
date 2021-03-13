@@ -22,20 +22,25 @@ public class Customer extends User {
 
     public void getPrevOrders() {
         for(int i = 0; i < prevOrders.getSize(); ++i) {
-            prevOrders.get(i).print();
+            prevOrders.get(i).printInfo();
         }
     }
 
     public void setAdress(String adress) {
         this.adress = adress;
+        System.out.println("Customer adress setted to "+ adress);
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+        System.out.println("Customer phoneNumber setted to "+ phoneNumber);
     }
 
     public void addPrevOrder(Order order) {
         prevOrders.add(order);
+        System.out.println("Below Order ");
+        order.printInfo();
+        System.out.println("added to customer previous orders");
     }
 
     @Override
@@ -59,7 +64,7 @@ public class Customer extends User {
     }
 
     private void informCustomerWelcome() {
-        System.out.println("Sn. " + getName() + " Basari ile kaydedildiniz, hadi hayirlisi olsun bakalim.");
+        System.out.println("Welcom " + getName() + ",you are succesfully registered");
     }
 }
 

@@ -1,8 +1,6 @@
 package officeFurnitures;
 
 
-import Users.Company;
-import Users.Employee;
 import Users.GenericArray;
 
 public class Branch {

@@ -5,21 +5,23 @@ import officeFurnitures.Branch;
 import officeFurnitures.Cabinet;
 import officeFurnitures.Product;
 
-public  class Company {
+public final class Company {
     public static GenericArray<Administrators> admins;
     public static GenericArray<Customer> customers;
     public static GenericArray<Branch> branches;
     public static GenericArray<Employee> employees;
 
-    public Company() {
+    private Company() {}
+
+    public static void init() {
         admins = new GenericArray<Administrators>((new Administrators("admin1")));
         branches = new GenericArray<Branch>(new Branch[]{
-            new Branch(createStarterProducts(),getNextBranchId()),
-            new Branch(createStarterProducts(),getNextBranchId())});
+                new Branch(createStarterProducts(),getNextBranchId()),
+                new Branch(createStarterProducts(),getNextBranchId())});
 
         employees = new GenericArray<Employee>();
         for (int i = 0; i < branches.getSize(); ++i) {
-            employees.add(new Employee("akan",getNextEmployeeId(),branches.get(i)));
+            employees.add(new Employee("Hakan",getNextEmployeeId(),branches.get(i)));
         }
         customers =new GenericArray<Customer>(new Customer("Murat","Kala","email","pw",getNextCustomerId()));
     }
@@ -68,9 +70,11 @@ public  class Company {
     }
 
     public static void listProducts() {
+        System.out.println("-----Lets Show You What We Got-----");
         for (int i = 0; i < Company.branches.getSize(); ++i) {
             Company.branches.get(i).listProducts();
         }
+        System.out.println("-----End Of What We Got, You can choose What You Want-----");
     }
 
     public static void addCustomer(Customer customer) {
