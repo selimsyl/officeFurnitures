@@ -49,7 +49,7 @@ public class Customer extends User {
             return true;
         }
 
-        if (!(obj instanceof Chair)) {
+        if (!(obj instanceof Customer)) {
             return false;
         }
 

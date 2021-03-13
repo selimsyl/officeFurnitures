@@ -11,10 +11,15 @@ public final class Company {
     public static GenericArray<Branch> branches;
     public static GenericArray<Employee> employees;
 
+    private static int branchId = 0;
+    private static int employeeId = 0;
+    private static int adminId = 0;
+    private static int customerId = 0;
+
     private Company() {}
 
     public static void init() {
-        admins = new GenericArray<Administrators>((new Administrators("admin1")));
+        admins = new GenericArray<Administrators>((new Administrators("admin")));
         branches = new GenericArray<Branch>(new Branch[]{
                 new Branch(createStarterProducts(),getNextBranchId()),
                 new Branch(createStarterProducts(),getNextBranchId())});
@@ -26,30 +31,6 @@ public final class Company {
         customers =new GenericArray<Customer>(new Customer("Murat","Kala","email","pw",getNextCustomerId()));
     }
 
-    private static int branchId = 0;
-    private static int employeeId = 0;
-    private static int adminId = 0;
-    private static int customerId = 0;
-
-    public static int getNextBranchId() {
-        return branchId++;
-    }
-
-    public static int getNextEmployeeId() {
-        return employeeId++;
-    }
-
-    /**
-     * @return
-     */
-    public static int getNextAdminId() {
-        return adminId++;
-    }
-
-    public static int getNextCustomerId() {
-        return customerId++;
-    }
-
     public static void listEmployees() {
         for (int i = 0; i < Company.employees.getSize(); ++i) {
             System.out.print(i + ". ");
@@ -57,9 +38,22 @@ public final class Company {
         }
     }
 
-    public static void listBranches() {
-        System.out.println("1 ile " + Integer.toString(Company.branches.getSize()) +
-                " arasinda Branch bulunmaktadir ");
+    public static boolean listBranches() {
+        if (Company.branches.getSize() == 0) {
+            System.out.println("There is no branch in company");
+            return false;
+        }
+
+        Object[] branch = Company.branches.getDataArray();
+
+        for (int i = 0; i < Company.branches.getSize(); ++i) {
+            if (i!=0 && i % 16 == 0) {
+                System.out.println();
+            }
+            System.out.print(((Branch)branch[i]).getBranchId() + " ");
+        }
+        System.out.println();
+        return true;
     }
 
     public static void listCustomers() {
@@ -81,13 +75,28 @@ public final class Company {
         customers.add(customer);
     }
 
-    public static boolean searchCustomer(Customer customer) {
-        for (int i = 0; i < customers.getSize(); ++i) {
-            if (customer.equals(customers.get(i))) {
-                return true;
-            }
-        }
-        return false;
+    public static Customer searchCustomer(String email,String pw) {
+        return customers.get(new Customer("", "", email, pw, 0));
+    }
+
+    public static Administrators searchAdmin(String name) {
+        return admins.get(new Administrators(name));
+//        for (int i = 0; i < admins.getSize(); ++i) {
+//            if (name.equals(admins.get(i).getName())) {
+//                return true;
+//            }
+//        }
+//        return false;
+    }
+
+    public static Employee searchEmployee(String name,int id) {
+        return employees.get(new Employee(name,id,null));
+//        for (int i = 0; i < admins.getSize(); ++i) {
+//            if (name.equals(admins.get(i).getName())) {
+//                return true;
+//            }
+//        }
+//        return false;
     }
 
     public static Product[] createStarterProducts() {
@@ -102,5 +111,24 @@ public final class Company {
             }
         }
         return products;
+    }
+
+    public static int getNextBranchId() {
+        return branchId++;
+    }
+
+    public static int getNextEmployeeId() {
+        return employeeId++;
+    }
+
+    /**
+     * @return
+     */
+    public static int getNextAdminId() {
+        return adminId++;
+    }
+
+    public static int getNextCustomerId() {
+        return customerId++;
     }
 }

@@ -68,7 +68,7 @@ public class Driver {
             System.out.println("-----Customer Already Registered, Driver Operations-----");
             customer = consoleCustomerInput(inputWay);
             try {
-                if (Company.searchCustomer(customer))
+                if (Company.searchCustomer(customer.getEmail(),"pw") == null)
                     throw new Exception("You need to create new customer account to log in");
             } catch (Exception e) {
                 System.out.println(e.getMessage());

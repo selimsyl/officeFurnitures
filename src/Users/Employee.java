@@ -1,6 +1,7 @@
 package Users;
 
 import officeFurnitures.Branch;
+import officeFurnitures.Chair;
 import officeFurnitures.Product;
 
 public class Employee extends User {
@@ -53,6 +54,15 @@ public class Employee extends User {
         return true;
     }
 
+    public void inquireProducts() {
+        System.out.println("Listing products need to be suplied");
+        for(int i = 0; i < myBranch.getproductsNeedToBeSuplied().getSize(); ++i) {
+            Product product = myBranch.getproductsNeedToBeSuplied().get(i);
+            product.printProductInfo();
+        }
+        System.out.println("Employee inquried producst");
+    }
+
     public void addCustomer(Customer customer) {
         Company.addCustomer(customer);
         System.out.println("Employee succesfully added below customer");
@@ -62,6 +72,22 @@ public class Employee extends User {
 
     public Branch whereIWork() {
         return myBranch;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Employee)) {
+            return false;
+        }
+
+        Employee rhs = (Employee) obj;
+
+        return this.getId() == (rhs.getId())
+                && getName().equals(rhs.getName());
     }
 
     private Branch myBranch;

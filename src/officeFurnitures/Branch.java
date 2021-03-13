@@ -1,6 +1,7 @@
 package officeFurnitures;
 
 
+import Users.Employee;
 import Users.GenericArray;
 
 public class Branch {
@@ -59,6 +60,21 @@ public class Branch {
             }
         }
         System.out.println();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Branch)) {
+            return false;
+        }
+
+        Branch rhs = (Branch) obj;
+
+        return this.branchId == rhs.getBranchId();
     }
 
     public int getProductCount() {

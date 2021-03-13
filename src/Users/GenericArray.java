@@ -43,13 +43,15 @@ public class GenericArray<T> {
         return (T) this.data[index];
     }
 
-    public void remove(T data) {
+    public boolean remove(T data) {
         int index = find(data);
 
         if (index < 0)
-            return;
+            return false;
 
         remove(index);
+
+        return true;
     }
 
     private int find(T data) {
@@ -90,13 +92,7 @@ public class GenericArray<T> {
         for(int i=index; i < size-1; i++){
             data[i] = data[i+1];
         }
-
-//        data[size-1] = null;
         size--;
-
-        if (size <= capacity/2) {
-            trimToSize();
-        }
     }
 
     private void trimToSize() {
