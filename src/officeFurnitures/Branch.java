@@ -7,10 +7,11 @@ import Users.GenericArray;
 public class Branch {
     Product[] products;
     GenericArray<Product> productsNeedToBeSuplied = new GenericArray<Product>();
-
+    Employee onlineEmployee;
     public Branch(Product[] products,int branchId) {
         this.branchId = branchId;
         this.products = products;
+        this.onlineEmployee = new Employee("online",0,this);
     }
 
     public Product findFurniture(Product furniture) {
@@ -79,6 +80,10 @@ public class Branch {
 
     public int getProductCount() {
         return products.length;
+    }
+
+    public Employee getOnlineEmployee() {
+        return onlineEmployee;
     }
 
     final private int branchId;

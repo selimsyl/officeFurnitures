@@ -55,7 +55,7 @@ public class Administrators extends User {
                 product.increaseUnitInStock(10);
             }
         }
-        System.out.println("End of Administrator quering products that need to be supplied");
+        System.out.println("End of Administrator quering products that are supplied");
     }
 
     @Override

@@ -26,7 +26,7 @@ public final class Company {
 
         employees = new GenericArray<Employee>();
         for (int i = 0; i < branches.getSize(); ++i) {
-            employees.add(new Employee("Hakan",getNextEmployeeId(),branches.get(i)));
+            employees.add(new Employee("onlineEmployee",getNextEmployeeId(),branches.get(i)));
         }
         customers =new GenericArray<Customer>(new Customer("Murat","Kala","email","pw",getNextCustomerId()));
     }
@@ -97,6 +97,10 @@ public final class Company {
 //            }
 //        }
 //        return false;
+    }
+
+    public static Employee getOnlineEmployee() {
+        return Company.employees.get(0);
     }
 
     public static Product[] createStarterProducts() {

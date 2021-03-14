@@ -80,7 +80,7 @@ public class Driver {
         customer.setAdress("adress");
         customer.setPhoneNumber("phoneNumber");
         Employee employeeBySystem0 = systemEmployeeAssign();
-        if(!employeeBySystem0.makeSell(customerSelectProduct(),customer,32))
+        if(!employeeBySystem0.makeSell(customerSelectProduct(),customer))
             System.out.println("!!!There is no enough amount of product!!!");
         else
             System.out.println("Your order has been successfully received");
@@ -91,9 +91,9 @@ public class Driver {
     static void  employeeDriver() {
         System.out.println("-----Employeee, Driver Operations Start-----");
         Employee employee = consoleEmployeeInput();
-        employee.addProduct(consoleInputProduct(),5);
-        employee.removeProduct(consoleInputProduct(),1);
-        employee.makeSell(customerSelectProduct(),consoleCustomerInput("Firs Time"),3);
+        employee.addProduct(consoleInputProduct());
+        employee.removeProduct(consoleInputProduct());
+        employee.makeSell(customerSelectProduct(),consoleCustomerInput("Firs Time"));
         employee.getUserPrevOrder(consoleCustomerInput("Already Registered"));
         System.out.println("-----Employeee, Driver Operations End-----");
     }

@@ -11,14 +11,15 @@ public class Employee extends User {
         this.myBranch = myBranch;
     }
 
-    public boolean makeSell(Product product,Customer customer,int count) {
-        if(!removeProduct(product,count)) {
+    public boolean makeSell(Product product,Customer customer) {
+        if(!removeProduct(product)) {
             return false;
         }
 
-        Order order = new Order(myBranch,customer,this,product,count);
+        Order order = new Order(myBranch,customer,this,product,product.getUnitInStock());
         customer.addPrevOrder(order);
-        System.out.println("Employee succesfully made a sell to " + customer.getName());
+        if (!getName().equals("online"))
+            System.out.println("Employee succesfully made a sell to " + customer.getName());
         return true;
     }
 
@@ -27,29 +28,31 @@ public class Employee extends User {
         customer.getPrevOrders();
     }
 
-    public void addProduct(Product product, int count) {
+    public void addProduct(Product product) {
         Product refProduct = myBranch.findFurniture(product);
-        refProduct.increaseUnitInStock();
+        refProduct.increaseUnitInStock(product.getUnitInStock());
         myBranch.updateproductsNeedToBeSuplied(product,1);
         System.out.println("Employee Succesfully added below prodoct");
         product.printProductInfo();
         System.out.println("to Work Branch");
     }
 
-    public boolean removeProduct(Product product,int count) {
+    public boolean removeProduct(Product product) {
         Product refProduct = myBranch.findFurniture(product);
         if (refProduct == null)
             return false;
-        if (refProduct.getUnitInStock() < count) {
+        if (refProduct.getUnitInStock() < product.getUnitInStock()) {
             myBranch.updateproductsNeedToBeSuplied(refProduct, 0);
             return false;
-        } else if (refProduct.getUnitInStock() == count) {
+        } else if (refProduct.getUnitInStock() == product.getUnitInStock()) {
             myBranch.updateproductsNeedToBeSuplied(refProduct, 0);
         }
-        System.out.println("Employee succesfully removed below prodoct");
-        product.printProductInfo();
-        refProduct.decreaseUnitInStock(count);
-        System.out.println("from Work Branch");
+        if (!getName().equals("online")) {
+            System.out.println("Employee succesfully removed below prodoct");
+            product.printProductInfo();
+            System.out.println("from Work Branch");
+        }
+        refProduct.decreaseUnitInStock(product.getUnitInStock());
 
         return true;
     }
@@ -60,7 +63,8 @@ public class Employee extends User {
             Product product = myBranch.getproductsNeedToBeSuplied().get(i);
             product.printProductInfo();
         }
-        System.out.println("Employee inquried producst");
+        System.out.println("Employee inquried products");
+        System.out.println("Employee informed manager");
     }
 
     public void addCustomer(Customer customer) {
@@ -86,8 +90,8 @@ public class Employee extends User {
 
         Employee rhs = (Employee) obj;
 
-        return this.getId() == (rhs.getId())
-                && getName().equals(rhs.getName());
+        return this.getId() == (rhs.getId());
+//                && getName().equals(rhs.getName());
     }
 
     private Branch myBranch;

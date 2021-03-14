@@ -17,10 +17,15 @@ public class Customer extends User {
         this.password = password;
         this.customerId = customerId;
         this.prevOrders = new GenericArray<Order>();
-        informCustomerWelcome();
+//        informCustomerWelcome();
     }
 
     public void getPrevOrders() {
+        if (prevOrders.getSize() == 0) {
+            System.out.println("There is no previous orders");
+            return;
+        }
+
         for(int i = 0; i < prevOrders.getSize(); ++i) {
             prevOrders.get(i).printInfo();
         }
@@ -28,12 +33,12 @@ public class Customer extends User {
 
     public void setAdress(String adress) {
         this.adress = adress;
-        System.out.println("Customer adress setted to "+ adress);
+//        System.out.println("Customer adress setted to "+ adress);
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-        System.out.println("Customer phoneNumber setted to "+ phoneNumber);
+//        System.out.println("Customer phoneNumber setted to "+ phoneNumber);
     }
 
     public void addPrevOrder(Order order) {

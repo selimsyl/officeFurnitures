@@ -17,7 +17,7 @@ public abstract class Product {
         if (!color.equals(""))
             System.out.println("Color : "+getColor());
         System.out.println("Stock : "+getUnitInStock());
-        System.out.println("---En of Order Info---");
+        System.out.println("---En of Product Info---");
     }
     public Product(int stockCount) {
         this.unitInStock = stockCount;
