@@ -5,6 +5,9 @@ package officeFurnitures;
  */
 public class Cabinet extends Product {
 
+    /**
+     * Enum values to represent bookcase models
+     */
     public enum CabinetModels implements Model {
         CABINET1("CABINET1"),CABINET2("CABINET2"),CABINET3("CABINET3"),CABINET4("CABINET4"),
         CABINET5("CABINET5"),CABINET6("CABINET6"),CABINET7("CABINET7"),CABINET8("CABINET8"),
@@ -15,6 +18,9 @@ public class Cabinet extends Product {
             this.modelName = value;
         }
 
+        /**
+         * @return Model name as a string
+         */
         @Override
         public String getName() {
             return modelName;
@@ -29,16 +35,27 @@ public class Cabinet extends Product {
         this.model = model;
     }
 
+    /**
+     * @return color of product
+     */
     @Override
     public String getColor() {
         return "";
     }
 
+    /**
+     * @return String name of a product
+     */
     @Override
     public String getModelName() {
         return  model.getName();
     }
 
+    /**
+     * Check equalty comparing model
+     * @param obj Cabinet
+     * @return true/false
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -54,5 +71,8 @@ public class Cabinet extends Product {
         return model.equals(rhs.model);
     }
 
+    /**
+     * Represent model as a enum value
+     */
     final CabinetModels model;
 }

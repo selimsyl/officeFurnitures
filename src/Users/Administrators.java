@@ -4,16 +4,28 @@ import officeFurnitures.Branch;
 import officeFurnitures.Product;
 
 public class Administrators extends User {
+    /**
+     * Ctor
+     * @param name Admin name
+     */
     Administrators(String name) {
         super(name,Company.getNextAdminId(),UserRole.ADMIN);
     }
 
+    /**
+     * Add a branch to system with auto assigned branch id and products for initialization
+     */
     public void addBranch() {
         Branch branch = new Branch(Company.createStarterProducts(),Company.getNextBranchId());
         Company.branches.add(branch);
         System.out.println("Branch with id "+ branch.getBranchId() + " added to system succesfully");
     }
 
+    /**
+     * Remove branch from system if its exits
+     * @param branch to be removed
+     * @return true if branch is exists else false
+     */
     public boolean removeBranch(Branch branch) {
         if (branch == null)
             return false;
@@ -30,6 +42,11 @@ public class Administrators extends User {
         return true;
     }
 
+    /**
+     * Create new employee and add to system
+     * @param branch to add employee
+     * @param name employee name
+     */
     public void addEmployeeToBranch(Branch branch,String name) {
         Employee employee = new Employee(name,Company.getNextEmployeeId(), branch);
         Company.employees.add(employee);
@@ -38,6 +55,9 @@ public class Administrators extends User {
         System.out.println("added to Branch with id : " + branch.getBranchId() + " succesfully");
     }
 
+    /**
+     * @param employee to be removed
+     */
     public void removeEmployeeFromBranch(Employee employee) {
         Company.employees.remove(employee);
         System.out.println("Below Employee " );
@@ -45,6 +65,9 @@ public class Administrators extends User {
         System.out.println("removed from Branch with id : " + employee.whereIWork().getBranchId() + " succesfully");
     }
 
+    /**
+     * query products and increase stock value +10
+     */
     public void queryProductsNeedToBeSuplied() {
         System.out.println("Start of Administrator quering products that need to be supplied");
         for (int i=0; i < Company.branches.getSize(); ++i) {
@@ -57,6 +80,11 @@ public class Administrators extends User {
         System.out.println("End of Administrator quering products that are supplied");
     }
 
+    /**
+     * Check admin object equalty comparing names
+     * @param obj admin
+     * @return  true/false
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

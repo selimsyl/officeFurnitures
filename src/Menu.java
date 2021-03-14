@@ -6,10 +6,23 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
+    /**
+     *  Used to access current system user
+     */
     private User user;
+    /**
+     * abstract base class reference to store current menu string array
+     */
     private MenuOperations menuOperations;
+
+    /**
+     * input stream handler
+     */
     private final Scanner inputScanner = new Scanner(System.in);
 
+    /**
+     * base abstract class for menu strings
+     */
     abstract class MenuOperations {
         String[] menu;
         public String[] getMenuOptions() {
@@ -17,18 +30,26 @@ public class Menu {
         }
     }
 
+    /**
+     * System login options
+     */
     class LoginMenu extends MenuOperations{
         LoginMenu() {
             menu = new String[]{"Administrator","Employee","Customer","NewCustomer","Exit"};
         }
     }
 
+    /**
+     * Administrator operation menu string array
+     */
     class AdministratorMenu extends MenuOperations {
         AdministratorMenu(){
             menu = new String[]{"AddBranch","RemoveBranch","AddEmployee","RemoveEmployee","QueryProducts", "LogOut"};
         }
     }
-
+    /**
+     * EmployeeMenu operation menu string array
+     */
     class EmployeeMenu extends MenuOperations {
         EmployeeMenu(){
             menu = new String[]{"AddProduct","RemoveProduct","InquireProducts","AddCustomer","MakeSell",
@@ -37,22 +58,35 @@ public class Menu {
         }
     }
 
+    /**
+     * CustomerMenu operation menu string array
+     */
     class CustomerMenu extends MenuOperations {
         CustomerMenu(){
             menu = new String[]{"SearchForAProduct","ListProducts","ViewPreviousOrders","Buy","LogOut"};
         }
     }
 
+    /**
+     * ProductMenu selection menu string array
+     */
     class ProductMenu extends  MenuOperations {
         ProductMenu(){
             menu = new String[]{"Chair","Desk","Table","Bookcase","Cabinet","Exit"};
         }
     }
 
+    /**
+     * Menu operations base method, all starts from here
+     */
     public void run() {
+        System.out.println("=============WELCOM TO OFFICE FURNITRES WONDERLAND=============");
         userMenu();
     }
 
+    /**
+     * Get which user uses the sytem
+     */
     private void userMenu() {
         do {
             switch (loginMenu().getRole()) {
@@ -69,6 +103,9 @@ public class Menu {
         }while(true);
     }
 
+    /**
+     * @return which user logs in system Administrator,Customer,Employee
+     */
     private User loginMenu() {
         user = null;
         do {
@@ -119,6 +156,9 @@ public class Menu {
         return user;
     }
 
+    /**
+     * Administrator menu for operations
+     */
     private void AdmistratorOperations() {
         boolean menuExit = false;
         Administrators admin = (Administrators) user;
@@ -187,6 +227,9 @@ public class Menu {
         }while (!menuExit);
     }
 
+    /**
+     * Customer menu for operations
+     */
     private void CustomerOperations() {
         Product product = null;
         boolean menuExit = false;
@@ -242,6 +285,9 @@ public class Menu {
         }while (!menuExit);
     }
 
+    /**
+     * Employee menu for operations
+     */
     private void EmployeeOperations() {
         boolean menuExit = false;
         Product product = null;
@@ -299,6 +345,10 @@ public class Menu {
         }while(!menuExit);
     }
 
+    /**
+     * @param menu String values listed as a menu
+     * @return which menu option is selected
+     */
     private String listMenu(String[] menu) {
         int i = 1;
         System.out.println("Please choose a option below, enter option number");
@@ -314,11 +364,23 @@ public class Menu {
         return i >= 0 ? menu[enteredOption-1] : "";
     }
 
+    /**
+     * @param desiredInput String name for a prompt to user what is expected
+     * @param minLength Min length of input
+     * @param maxLength Max length of input
+     * @return what is entered
+     */
     private String getStringFromConsole(String desiredInput,int minLength,int maxLength) {
         System.out.println("Enter 'exit' to abort operations");
         return getEnteredString(desiredInput,minLength,maxLength);
     }
 
+    /**
+     * @param desiredInput String name for a prompt to user what is expected
+     * @param minLength Min length of input
+     * @param maxLength Max length of input
+     * @return what is entered
+     */
     private String getEnteredString(String desiredInput,int minLength,int maxLength) {
         String revStr = null;
         System.out.println("Please enter a valid "+desiredInput+" between " + minLength + "-" + maxLength);
@@ -344,6 +406,12 @@ public class Menu {
         return revStr;
     }
 
+    /**
+     * @param minInput Min input value
+     * @param maxInput Max input value
+     * @return what value is entered
+     * Make user to enter a value between minInput-maxInput values
+     */
     private int getSelectedOption(int minInput,int maxInput) {
         int enteredOption = -1;
 
@@ -362,6 +430,9 @@ public class Menu {
         return enteredOption;
     }
 
+    /**
+     * @return register Customer to Copmany customer array
+     */
     private Customer registerCustomer() {
         String name = getStringFromConsole("NAME",1, 15);
         if (name.toLowerCase().equals("exit"))
@@ -392,6 +463,9 @@ public class Menu {
         return customer;
     }
 
+    /**
+     * @return get customer email and password to validate it
+     */
     private Customer getCustomerCredentialsFromConsole() {
         String email = getStringFromConsole("Customer Email",1, 15);
         if (email.toLowerCase().equals("exit"))
@@ -402,6 +476,10 @@ public class Menu {
         return Company.searchCustomer(email, pw);
     }
 
+    /**
+     * @param menu String values for products
+     * @return which product option is selected
+     */
     private String listProductsMenus(String[] menu) {
         menu = Arrays.copyOf(menu, menu.length+1);
         menu[menu.length-1] = "Exit";
@@ -414,6 +492,9 @@ public class Menu {
         return selectedModel;
     }
 
+    /**
+     * @return choosen product
+     */
     private Product chooseAProduct() {
         boolean menuExit = false;
         do {

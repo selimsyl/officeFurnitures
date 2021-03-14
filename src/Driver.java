@@ -101,6 +101,7 @@ public class Driver {
 
     static public  void run() throws Exception {
         Driver driver = new Driver();
+        System.out.println("=====================================DRIVER START=====================================");
         try {
             Company.init();
             administratorsDriver();
@@ -112,5 +113,7 @@ public class Driver {
             System.out.println(e.getMessage());
             throw e;
         }
+        System.out.println("=====================================DRIVER END=====================================");
+
     }
 }

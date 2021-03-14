@@ -5,6 +5,9 @@ package officeFurnitures;
  */
 public class Desk extends Product {
 
+    /**
+     * Desk color as a enum values
+     */
     public enum Color {
         BROWN,
         ORANGE,
@@ -12,6 +15,9 @@ public class Desk extends Product {
         GREEN,
     }
 
+    /**
+     * Enum values represent desk models
+     */
     public enum DeskModels implements Model {
         DESK1("DESK1"),DESK2("DESK2"),DESK3("DESK3"),DESK4("DESK4"),DESK5("DESK5");
 
@@ -20,6 +26,9 @@ public class Desk extends Product {
             this.value = value;
         }
 
+        /**
+         * @return Model name as a string
+         */
         @Override
         public String getName() {
             return value;
@@ -36,16 +45,27 @@ public class Desk extends Product {
         this.color = color;
     }
 
+    /**
+     * @return Color value as a string
+     */
     @Override
     public String getColor() {
         return color.toString();
     }
 
+    /**
+     * @return Model name as a string
+     */
     @Override
     public String getModelName() {
         return  model.getName();
     }
 
+    /**
+     * Check equalty comparing model and color
+     * @param obj Desk
+     * @return true/false
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -62,6 +82,12 @@ public class Desk extends Product {
                 && color.equals(rhs.color);
     }
 
+    /**
+     * Represent model as a enum value
+     */
     final DeskModels model;
+    /**
+     * Represent color as a enum value
+     */
     private final Color color;
 }

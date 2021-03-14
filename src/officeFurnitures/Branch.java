@@ -5,20 +5,47 @@ import Users.GenericArray;
 
 public class Branch {
 
+    /**
+     * Producst stored in
+     */
     Product[] products;
+    /**
+     * Products which have 0 unitInStock
+     */
     GenericArray<Product> productsNeedToBeSuplied = new GenericArray<Product>();
+    /**
+     * used as default employee for online operations to help Customers
+     */
     Employee onlineEmployee;
 
+    /**
+     * Unique id to identify branches in Company
+     */
+    final private int branchId;
+
+    /**
+     * Branch only ctor
+     * @param products What products branch has
+     * @param branchId uniqe branch id
+     */
     public Branch(Product[] products,int branchId) {
         this.branchId = branchId;
         this.products = products;
         this.onlineEmployee = new Employee("online",0,this);
     }
 
+    /**
+     * @return return branch unique id
+     */
     public int getBranchId() {
         return branchId;
     }
 
+    /**
+     * If a product is needs to be supplied it is added here to infore manager
+     * @param product Product to be addet to need to be list
+     * @param operation add or remove from list
+     */
     public void updateproductsNeedToBeSuplied(Product product,int operation)
     {
         if (operation > 0) {//increase
@@ -28,10 +55,17 @@ public class Branch {
         }
     }
 
+    /**
+     * @return getArray
+     */
     public GenericArray<Product> getproductsNeedToBeSuplied() {
         return productsNeedToBeSuplied;
     }
 
+    /**
+     * @param furniture find product end return reference to it
+     * @return
+     */
     public Product findFurniture(Product furniture) {
         for (Product product : products) {
             if(product.getUnitInStock() > 0) {
@@ -43,6 +77,9 @@ public class Branch {
         return null;
     }
 
+    /**
+     * list branch`s products
+     */
     public void listProducts() {
         Product printedPrevProduct = null;
         System.out.println("Producst in Strore ID : " + branchId);
@@ -64,6 +101,11 @@ public class Branch {
         System.out.println();
     }
 
+    /**
+     * check branch equalty by unique Branch id
+     * @param obj branch
+     * @return
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {
@@ -79,9 +121,10 @@ public class Branch {
         return this.branchId == rhs.getBranchId();
     }
 
+    /**
+     * @return get always exist employee to access branch product operations
+     */
     public Employee getOnlineEmployee() {
         return onlineEmployee;
     }
-
-    final private int branchId;
 }

@@ -5,6 +5,9 @@ public class Customer extends User {
     private String adress,phoneNumber;
     private int customerId;
 
+    /**
+     * Store previous order info
+     */
     GenericArray<Order> prevOrders;
 
     public Customer(String name,String surname,String email,String password,int customerId) {
@@ -16,6 +19,9 @@ public class Customer extends User {
         this.prevOrders = new GenericArray<Order>();
     }
 
+    /**
+     * Print previous orders to stdout
+     */
     public void getPrevOrders() {
         if (prevOrders.getSize() == 0) {
             System.out.println("There is no previous orders");
@@ -27,14 +33,23 @@ public class Customer extends User {
         }
     }
 
+    /**
+     * @param adress
+     */
     public void setAdress(String adress) {
         this.adress = adress;
     }
 
+    /**
+     * @param phoneNumber
+     */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+    /**
+     * @param order to be added to prevOrder array
+     */
     public void addPrevOrder(Order order) {
         prevOrders.add(order);
         System.out.println("Below Order ");
@@ -42,10 +57,18 @@ public class Customer extends User {
         System.out.println("added to customer previous orders");
     }
 
+    /**
+     * @return unique email
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Check equalty comparing email and password
+     * @param obj Customer
+     * @return true/false
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == this) {

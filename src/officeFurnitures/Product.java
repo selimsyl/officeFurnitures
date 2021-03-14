@@ -6,9 +6,19 @@ package officeFurnitures;
 public abstract class Product {
     int unitInStock;
 
+    /**
+     * @return String represent model name
+     */
     public abstract String getModelName();
+
+    /**
+     * @return String represent color name
+     */
     public abstract String getColor();
 
+    /**
+     * Print product informations to stdout
+     */
     public void printProductInfo() {
         System.out.println("---Product Info---");
         System.out.println("Model : "+getModelName());
@@ -22,6 +32,9 @@ public abstract class Product {
         this.unitInStock = stockCount;
     }
 
+    /**
+     * @return Product amount in store
+     */
     public int getUnitInStock() {return unitInStock;}
     public void increaseUnitInStock() {++unitInStock;}
     public void increaseUnitInStock(int count) {unitInStock += count;}
