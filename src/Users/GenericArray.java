@@ -55,7 +55,7 @@ public class GenericArray<T> {
     }
 
     private int find(T data) {
-        for (int i = 0; i < this.data.length; ++i) {
+        for (int i = 0; i < this.size; ++i) {
             if (data.equals(this.data[i])) {
                 return i;
             }

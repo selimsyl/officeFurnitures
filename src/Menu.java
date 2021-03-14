@@ -129,10 +129,10 @@ public class Menu {
                     admin.addBranch();
                 }
                 case "RemoveBranch" -> {
-                    System.out.println("Please choose a branch id to remove below");
                     if(!Company.listBranches())
                         break;
-                    var enteredSelection = getSelectedOption(0,Company.getExistLastBranchId()-1);
+                    System.out.println("Please choose a branch id to remove above");
+                    var enteredSelection = getSelectedOption(0,Company.getExistLastBranchId());
                     if (enteredSelection == -1)
                         break;
                     Branch branch = Company.branches.get(new Branch(null,enteredSelection));
@@ -140,14 +140,15 @@ public class Menu {
                         if (!admin.removeBranch(branch)) {
                             System.out.println("There is no branch with " + enteredSelection + " id");
                         }
+                    }else{
+                        System.out.println("There is no branch with id " + enteredSelection);
                     }
                 }
                 case "AddEmployee" -> {
                     if(!Company.listBranches())
                         break;
                     System.out.println("Please choose a branch id to add employee above");
-                    System.out.println(Company.getExistLastBranchId());
-                    var enteredSelection = getSelectedOption(0,Company.getExistLastBranchId()-1);
+                    var enteredSelection = getSelectedOption(0,Company.getExistLastBranchId());
                     if (enteredSelection == -1)
                         break;
                     Branch branch = Company.branches.get(new Branch(null,enteredSelection));
