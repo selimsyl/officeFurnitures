@@ -121,6 +121,10 @@ public final class Company {
         return branchId++;
     }
 
+    public static int getExistLastBranchId() {
+        return branchId;
+    }
+
     public static int getNextEmployeeId() {
         return employeeId++;
     }

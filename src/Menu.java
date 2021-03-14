@@ -240,7 +240,7 @@ public class Menu {
                     System.out.println("Please choose a branch id to remove below");
                     if(!Company.listBranches())
                         break;
-                    var enteredSelection = getSelectedOption(0,Company.branches.getSize());
+                    var enteredSelection = getSelectedOption(0,Company.getExistLastBranchId()-1);
                     if (enteredSelection == -1)
                         break;
                     Branch branch = Company.branches.get(new Branch(null,enteredSelection));
@@ -262,11 +262,15 @@ public class Menu {
                         admin.addEmployeeToBranch(branch,enteredName);
                 }
                 case "RemoveEmployee" -> {
-                    System.out.println("Please enter a employee beetween 1-"+Company.employees.getSize()+" id to remove");
-                    var enteredSelection = getSelectedOption(1,Company.employees.getSize());
+                    if (Company.employees.getSize() <= 0) {
+                        System.out.println("There is no employee to remove");
+                        break;
+                    }
+                    System.out.println("Please enter a employee id beetween 0-"+(Company.employees.getSize()-1)+" to remove");
+                    var enteredSelection = getSelectedOption(0,Company.employees.getSize()-1);
                     if (enteredSelection == -1)
                         break;
-                    Employee employee = Company.employees.get(new Employee("dum", enteredSelection-1, null));
+                    Employee employee = Company.employees.get(new Employee("dum", enteredSelection, null));
                     admin.removeEmployeeFromBranch(employee);
                 }
                 case "QueryProducts" -> {
