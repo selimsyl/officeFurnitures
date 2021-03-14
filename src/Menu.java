@@ -122,27 +122,27 @@ public class Menu {
     }
 
     private Customer registerCustomer() {
-        String name = getStringFromConsole("name",5, 15);
+        String name = getStringFromConsole("NAME",1, 15);
         if (name.toLowerCase().equals("exit"))
             return null;
 
-        String email = getStringFromConsole("email",5, 15);
+        String email = getStringFromConsole("EMAIL",1, 15);
         if (email.toLowerCase().equals("exit"))
             return null;
 
-        String surname = getStringFromConsole("surname",5, 15);
+        String surname = getStringFromConsole("SURNAME",1, 15);
         if (surname.toLowerCase().equals("exit"))
             return null;
 
-        String password = getStringFromConsole("password",5, 15);
+        String password = getStringFromConsole("PASSWORD",1, 15);
         if (password.toLowerCase().equals("exit"))
             return null;
 
-        String adress = getStringFromConsole("adress",5, 25);
+        String adress = getStringFromConsole("ADRESS",1, 25);
         if (password.toLowerCase().equals("exit"))
             return null;
 
-        String phone = getStringFromConsole("phoneNumber",5, 25);
+        String phone = getStringFromConsole("PHONENUMBER",1, 25);
         if (password.toLowerCase().equals("exit"))
             return null;
         Customer customer = new Customer(name, surname,email ,password ,Company.getNextCustomerId());
@@ -152,10 +152,10 @@ public class Menu {
     }
 
     private Customer getCustomerCredentialsFromConsole() {
-        String email = getStringFromConsole("Customer Email",5, 15);
+        String email = getStringFromConsole("Customer Email",1, 15);
         if (email.toLowerCase().equals("exit"))
             return null;
-        String pw = getStringFromConsole("Customer Password",5, 15);
+        String pw = getStringFromConsole("Customer Password",1, 15);
         if (email.toLowerCase().equals("exit"))
             return null;
         return Company.searchCustomer(email, pw);
@@ -522,16 +522,17 @@ public class Menu {
                 case "SearchForAProduct" -> {
                     System.out.println("Please select product to search");
                     product = chooseAProduct();
-
-                    Object[] branches = Company.branches.getDataArray();
-                    for (int i = 0; i < Company.branches.getSize(); ++i) {
-                        Branch branch = (Branch)branches[i];
-                        if(branch.findFurniture(product) != null) {
-                            System.out.println("Product found in store id with " + branch.getBranchId());
+                    if (product != null) {
+                        Object[] branches = Company.branches.getDataArray();
+                        for (int i = 0; i < Company.branches.getSize(); ++i) {
+                            Branch branch = (Branch) branches[i];
+                            if (branch.findFurniture(product) != null) {
+                                System.out.println("Product found in store id with " + branch.getBranchId());
+                            }
                         }
                     }
                 }
-                case "listProducts" -> {
+                case "ListProducts" -> {
                     Company.listProducts();
                 }
                 case "ViewPreviousOrders" -> {
@@ -540,16 +541,20 @@ public class Menu {
                 case "Buy" -> {
                     System.out.println("Please select product to buy");
                     product = chooseAProduct();
+                    boolean sellCompleted = false;
                     if (product != null) {
                         Object[] branches = Company.branches.getDataArray();
                         for (int i = 0; i < Company.branches.getSize(); ++i) {
                             Branch branch = (Branch)branches[i];
                             if (branch.getOnlineEmployee().makeSell(product, customer)) {
+                                sellCompleted = true;
                                 break;
                             }
                         }
-                        System.out.println("There are no enough products in store");
-                        System.out.println("Employee informed manager");
+                        if (!sellCompleted) {
+                            System.out.println("There are no enough products in store");
+                            System.out.println("Employee informed manager");
+                        }
                     }
                 }
                 case "LogOut" -> {
