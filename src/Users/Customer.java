@@ -1,12 +1,9 @@
 package Users;
 
-import officeFurnitures.Chair;
-import officeFurnitures.Product;
-
 public class Customer extends User {
-    String surname,email,password;
+    private String surname,email,password;
     private String adress,phoneNumber;
-    int customerId;
+    private int customerId;
 
     GenericArray<Order> prevOrders;
 
@@ -17,7 +14,6 @@ public class Customer extends User {
         this.password = password;
         this.customerId = customerId;
         this.prevOrders = new GenericArray<Order>();
-//        informCustomerWelcome();
     }
 
     public void getPrevOrders() {
@@ -33,12 +29,10 @@ public class Customer extends User {
 
     public void setAdress(String adress) {
         this.adress = adress;
-//        System.out.println("Customer adress setted to "+ adress);
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-//        System.out.println("Customer phoneNumber setted to "+ phoneNumber);
     }
 
     public void addPrevOrder(Order order) {
@@ -46,6 +40,10 @@ public class Customer extends User {
         System.out.println("Below Order ");
         order.printInfo();
         System.out.println("added to customer previous orders");
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     @Override
@@ -64,12 +62,5 @@ public class Customer extends User {
                 && password.equals(rhs.password);
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    private void informCustomerWelcome() {
-        System.out.println("Welcom " + getName() + ",you are succesfully registered");
-    }
 }
 

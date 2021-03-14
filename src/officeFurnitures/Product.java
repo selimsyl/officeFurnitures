@@ -6,7 +6,6 @@ package officeFurnitures;
 public abstract class Product {
     int unitInStock;
 
-//    public abstract Model getModel();
     public abstract String getModelName();
     public abstract String getColor();
 

@@ -1,6 +1,10 @@
 package Users;
 
 public abstract class User {
+    final private String name;
+    final private int id;
+    final private UserRole role;
+
     public enum UserRole {
         ADMIN,
         EMPLOYEE,
@@ -26,9 +30,4 @@ public abstract class User {
         System.out.println("UserRole : " +role.toString());
         System.out.println("---En of User Info---");
     }
-
-
-    final private String name;
-    final private int id;
-    final private UserRole role;
 }

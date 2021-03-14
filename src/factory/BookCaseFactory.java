@@ -1,8 +1,6 @@
 package factory;
 
 import officeFurnitures.BookCase;
-import officeFurnitures.Chair;
-import officeFurnitures.Color;
 
 public class BookCaseFactory implements Factory {
 

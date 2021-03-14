@@ -95,6 +95,7 @@ public class Driver {
         employee.removeProduct(consoleInputProduct());
         employee.makeSell(customerSelectProduct(),consoleCustomerInput("Firs Time"));
         employee.getUserPrevOrder(consoleCustomerInput("Already Registered"));
+        employee.inquireProducts();
         System.out.println("-----Employeee, Driver Operations End-----");
     }
 

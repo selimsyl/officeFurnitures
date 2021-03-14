@@ -5,10 +5,6 @@ package officeFurnitures;
  */
 public class Cabinet extends Product {
 
-    @Override
-    public String getColor() {
-        return "";
-    }
     public enum CabinetModels implements Model {
         CABINET1("CABINET1"),CABINET2("CABINET2"),CABINET3("CABINET3"),CABINET4("CABINET4"),
         CABINET5("CABINET5"),CABINET6("CABINET6"),CABINET7("CABINET7"),CABINET8("CABINET8"),
@@ -33,16 +29,15 @@ public class Cabinet extends Product {
         this.model = model;
     }
 
-//    @Override
-//    public CabinetModels getModel() {
-//        return model;
-//    }
+    @Override
+    public String getColor() {
+        return "";
+    }
 
     @Override
     public String getModelName() {
         return  model.getName();
     }
-
 
     @Override
     public boolean equals(Object obj) {

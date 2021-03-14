@@ -94,9 +94,4 @@ public class GenericArray<T> {
         }
         size--;
     }
-
-    private void trimToSize() {
-        data = Arrays.copyOf(data, size);
-        capacity = data.length;
-    }
 }

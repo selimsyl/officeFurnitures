@@ -2,7 +2,6 @@ package Users;
 
 import factory.*;
 import officeFurnitures.Branch;
-import officeFurnitures.Cabinet;
 import officeFurnitures.Product;
 
 public final class Company {
@@ -25,9 +24,9 @@ public final class Company {
                 new Branch(createStarterProducts(),getNextBranchId())});
 
         employees = new GenericArray<Employee>();
-        for (int i = 0; i < branches.getSize(); ++i) {
-            employees.add(new Employee("onlineEmployee",getNextEmployeeId(),branches.get(i)));
-        }
+//        for (int i = 0; i < branches.getSize(); ++i) {
+//            employees.add(new Employee("onlineEmployee",getNextEmployeeId(),branches.get(i)));
+//        }
         customers =new GenericArray<Customer>(new Customer("Murat","Kala","email","pw",getNextCustomerId()));
     }
 
@@ -81,40 +80,10 @@ public final class Company {
 
     public static Administrators searchAdmin(String name) {
         return admins.get(new Administrators(name));
-//        for (int i = 0; i < admins.getSize(); ++i) {
-//            if (name.equals(admins.get(i).getName())) {
-//                return true;
-//            }
-//        }
-//        return false;
     }
 
     public static Employee searchEmployee(String name,int id) {
         return employees.get(new Employee(name,id,null));
-//        for (int i = 0; i < admins.getSize(); ++i) {
-//            if (name.equals(admins.get(i).getName())) {
-//                return true;
-//            }
-//        }
-//        return false;
-    }
-
-    public static Employee getOnlineEmployee() {
-        return Company.employees.get(0);
-    }
-
-    public static Product[] createStarterProducts() {
-        Factory[] factories = new Factory[]{new ChairFactory(),new DeskFactory(),
-                                    new CabinetFactory(),new BookCaseFactory(),new TableFactory()};
-
-        Product[] products = new Product[119];
-        int index = 0;
-        for (Factory factory : factories) {
-            for (Product product:factory.createFurniture()) {
-                products[index++] = product;
-            }
-        }
-        return products;
     }
 
     public static int getNextBranchId() {
@@ -125,6 +94,9 @@ public final class Company {
         return branchId;
     }
 
+    public static int getExistEmployeeBranchId() {
+        return employeeId;
+    }
     public static int getNextEmployeeId() {
         return employeeId++;
     }
@@ -138,5 +110,19 @@ public final class Company {
 
     public static int getNextCustomerId() {
         return customerId++;
+    }
+
+    public static Product[] createStarterProducts() {
+        Factory[] factories = new Factory[]{new ChairFactory(),new DeskFactory(),
+                new CabinetFactory(),new BookCaseFactory(),new TableFactory()};
+
+        Product[] products = new Product[119];
+        int index = 0;
+        for (Factory factory : factories) {
+            for (Product product:factory.createFurniture()) {
+                products[index++] = product;
+            }
+        }
+        return products;
     }
 }

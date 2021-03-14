@@ -1,28 +1,18 @@
 package officeFurnitures;
 
-
 import Users.Employee;
 import Users.GenericArray;
 
 public class Branch {
+
     Product[] products;
     GenericArray<Product> productsNeedToBeSuplied = new GenericArray<Product>();
     Employee onlineEmployee;
+
     public Branch(Product[] products,int branchId) {
         this.branchId = branchId;
         this.products = products;
         this.onlineEmployee = new Employee("online",0,this);
-    }
-
-    public Product findFurniture(Product furniture) {
-        for (Product product : products) {
-            if(product.getUnitInStock() > 0) {
-                if (furniture.equals(product)) {
-                    return product;
-                }
-            }
-        }
-        return null;
     }
 
     public int getBranchId() {
@@ -40,6 +30,17 @@ public class Branch {
 
     public GenericArray<Product> getproductsNeedToBeSuplied() {
         return productsNeedToBeSuplied;
+    }
+
+    public Product findFurniture(Product furniture) {
+        for (Product product : products) {
+            if(product.getUnitInStock() > 0) {
+                if (furniture.equals(product)) {
+                    return product;
+                }
+            }
+        }
+        return null;
     }
 
     public void listProducts() {
@@ -76,10 +77,6 @@ public class Branch {
         Branch rhs = (Branch) obj;
 
         return this.branchId == rhs.getBranchId();
-    }
-
-    public int getProductCount() {
-        return products.length;
     }
 
     public Employee getOnlineEmployee() {

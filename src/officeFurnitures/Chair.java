@@ -13,11 +13,6 @@ public class Chair extends Product {
         YELLOW,
     }
 
-    @Override
-    public String getColor() {
-        return color.toString();
-    }
-
     public enum ChairModels implements Model {
         CHAIR1("CHAIR1"),CHAIR2("CHAIR2"),CHAIR3("CHAIR3"),
         CHAIR4("CHAIR4"),CHAIR5("CHAIR5"),CHAIR6("CHAIR6"),CHAIR7("CHAIR7");
@@ -33,19 +28,21 @@ public class Chair extends Product {
         }
     }
 
-    @Override
-    public String getModelName() {
-        return  model.getName();
-    }
-
     public Chair(ChairModels model, Color color,int stockCount) {
         super(stockCount);
         this.model = model;
         this.color = color;
     }
 
-//    @Override
-//    public Model getModel() {return model;}
+    @Override
+    public String getModelName() {
+        return  model.getName();
+    }
+
+    @Override
+    public String getColor() {
+        return color.toString();
+    }
 
     @Override
     public boolean equals(Object obj) {

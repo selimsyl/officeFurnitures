@@ -15,12 +15,6 @@ public class Menu {
         public String[] getMenuOptions() {
             return menu;
         }
-        public int getMenuOptionsSize(){
-            return menu.length;
-        }
-        public void setMenu(String[] menu) {
-            this.menu = menu;
-        }
     }
 
     class LoginMenu extends MenuOperations{
@@ -55,110 +49,24 @@ public class Menu {
         }
     }
 
-    private int getSelectedOption(int minInput,int maxInput) {
-        int enteredOption = -1;
-
-        try {
-            enteredOption = inputScanner.nextInt();
-        } catch (Exception e) {
-//            System.out.println(e.getMessage());
-        }
-        inputScanner.nextLine();
-
-        if (enteredOption < minInput || enteredOption > maxInput) {
-            System.out.println("Please enter a valid option");
-            enteredOption = -1;
-        }
-
-        return enteredOption;
+    public void run() {
+        userMenu();
     }
 
-    private String getStringFromConsole(String desiredInput,int minLength,int maxLength) {
-        System.out.println("Enter 'exit' to abort operations");
-        return getEnteredString(desiredInput,minLength,maxLength);
-    }
-
-    private String getEnteredString(String desiredInput,int minLength,int maxLength) {
-        String revStr = null;
-        System.out.println("Please enter a valid "+desiredInput+" between " + minLength + "-" + maxLength);
+    private void userMenu() {
         do {
-            try {
-                revStr = inputScanner.nextLine();
-                if (revStr.toLowerCase().equals("exit"))
-                    continue;
-                if (revStr.length() < minLength || revStr.length() > maxLength) {
-                    System.out.println("Please enter a valid "+desiredInput+" between " + minLength + "-" + maxLength);
+            switch (loginMenu().getRole()) {
+                case ADMIN -> {
+                    AdmistratorOperations();
                 }
-                else {
-                    break;
+                case CUSTOMER -> {
+                    CustomerOperations();
                 }
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                System.out.println("Please enter a valid name");
-                revStr = "";
+                case EMPLOYEE -> {
+                    EmployeeOperations();
+                }
             }
-//            inputScanner.nextLine();
-
-        }while(!revStr.toLowerCase().equals("exit"));
-        return revStr;
-    }
-
-    private String listMenu(String[] menu) {
-        int i = 1;
-        System.out.println("Please choose a option below, enter option number");
-        for (String item:menu) {
-            System.out.println(i++ + ". " + item);
-        }
-
-        var enteredOption = getSelectedOption(1,menu.length);
-        if (enteredOption == -1)
-            return "";
-
-//        if (enteredOption < 1 || enteredOption > menu.length)
-//            return "";
-        System.out.println("Selected option : " + menu[enteredOption-1]);
-        return i >= 0 ? menu[enteredOption-1] : "";
-    }
-
-    private Customer registerCustomer() {
-        String name = getStringFromConsole("NAME",1, 15);
-        if (name.toLowerCase().equals("exit"))
-            return null;
-
-        String email = getStringFromConsole("EMAIL",1, 15);
-        if (email.toLowerCase().equals("exit"))
-            return null;
-
-        String surname = getStringFromConsole("SURNAME",1, 15);
-        if (surname.toLowerCase().equals("exit"))
-            return null;
-
-        String password = getStringFromConsole("PASSWORD",1, 15);
-        if (password.toLowerCase().equals("exit"))
-            return null;
-
-        String adress = getStringFromConsole("ADRESS",1, 25);
-        if (password.toLowerCase().equals("exit"))
-            return null;
-
-        String phone = getStringFromConsole("PHONENUMBER",1, 25);
-        if (password.toLowerCase().equals("exit"))
-            return null;
-        Customer customer = new Customer(name, surname,email ,password ,Company.getNextCustomerId());
-        customer.setPhoneNumber(phone);
-        customer.setAdress(adress);
-        return customer;
-    }
-
-    private Customer getCustomerCredentialsFromConsole() {
-        String email = getStringFromConsole("Customer Email",1, 15);
-        if (email.toLowerCase().equals("exit"))
-            return null;
-        String pw = getStringFromConsole("Customer Password",1, 15);
-        if (email.toLowerCase().equals("exit"))
-            return null;
-        return Company.searchCustomer(email, pw);
+        }while(true);
     }
 
     private User loginMenu() {
@@ -211,22 +119,6 @@ public class Menu {
         return user;
     }
 
-    public void userMenu() {
-        do {
-            switch (loginMenu().getRole()) {
-                case ADMIN -> {
-                    AdmistratorOperations();
-                }
-                case CUSTOMER -> {
-                    CustomerOperations();
-                }
-                case EMPLOYEE -> {
-                    EmployeeOperations();
-                }
-            }
-        }while(true);
-    }
-
     private void AdmistratorOperations() {
         boolean menuExit = false;
         Administrators admin = (Administrators) user;
@@ -244,19 +136,25 @@ public class Menu {
                     if (enteredSelection == -1)
                         break;
                     Branch branch = Company.branches.get(new Branch(null,enteredSelection));
-
-                    if(!admin.removeBranch(branch)) {
-                        System.out.println("There is no branch with " + enteredSelection + " id");
+                    if (branch != null) {
+                        if (!admin.removeBranch(branch)) {
+                            System.out.println("There is no branch with " + enteredSelection + " id");
+                        }
                     }
                 }
                 case "AddEmployee" -> {
-                    System.out.println("Please choose a branch id to add employee below");
                     if(!Company.listBranches())
                         break;
-                    var enteredSelection = getSelectedOption(0,Company.branches.getSize());
+                    System.out.println("Please choose a branch id to add employee above");
+                    System.out.println(Company.getExistLastBranchId());
+                    var enteredSelection = getSelectedOption(0,Company.getExistLastBranchId()-1);
                     if (enteredSelection == -1)
                         break;
                     Branch branch = Company.branches.get(new Branch(null,enteredSelection));
+                    if (branch == null) {
+                        System.out.println("There is no branch with id " + enteredSelection);
+                        break;
+                    }
                     var enteredName = getStringFromConsole("name",5, 10);
                     if (!enteredName.toLowerCase().equals("exit"))
                         admin.addEmployeeToBranch(branch,enteredName);
@@ -266,12 +164,13 @@ public class Menu {
                         System.out.println("There is no employee to remove");
                         break;
                     }
-                    System.out.println("Please enter a employee id beetween 0-"+(Company.employees.getSize()-1)+" to remove");
-                    var enteredSelection = getSelectedOption(0,Company.employees.getSize()-1);
+                    System.out.println("Please enter a employee id beetween 0-"+(Company.getExistEmployeeBranchId()-1)+" to remove");
+                    var enteredSelection = getSelectedOption(0,Company.getExistEmployeeBranchId()-1);
                     if (enteredSelection == -1)
                         break;
                     Employee employee = Company.employees.get(new Employee("dum", enteredSelection, null));
-                    admin.removeEmployeeFromBranch(employee);
+                    if (employee != null)
+                        admin.removeEmployeeFromBranch(employee);
                 }
                 case "QueryProducts" -> {
                     admin.queryProductsNeedToBeSuplied();
@@ -285,6 +184,221 @@ public class Menu {
                 }
             }
         }while (!menuExit);
+    }
+
+    private void CustomerOperations() {
+        Product product = null;
+        boolean menuExit = false;
+        Customer customer = (Customer)user;
+        do {
+            menuOperations = new CustomerMenu();
+            switch (listMenu(menuOperations.getMenuOptions())) {
+                case "SearchForAProduct" -> {
+                    System.out.println("Please select product to search");
+                    product = chooseAProduct();
+                    if (product != null) {
+                        Object[] branches = Company.branches.getDataArray();
+                        for (int i = 0; i < Company.branches.getSize(); ++i) {
+                            Branch branch = (Branch) branches[i];
+                            if (branch.findFurniture(product) != null) {
+                                System.out.println("Product found in store id with " + branch.getBranchId());
+                            }
+                        }
+                    }
+                }
+                case "ListProducts" -> {
+                    Company.listProducts();
+                }
+                case "ViewPreviousOrders" -> {
+                    customer.getPrevOrders();
+                }
+                case "Buy" -> {
+                    System.out.println("Please select product to buy");
+                    product = chooseAProduct();
+                    boolean sellCompleted = false;
+                    if (product != null) {
+                        Object[] branches = Company.branches.getDataArray();
+                        for (int i = 0; i < Company.branches.getSize(); ++i) {
+                            Branch branch = (Branch)branches[i];
+                            if (branch.getOnlineEmployee().makeSell(product, customer)) {
+                                sellCompleted = true;
+                                break;
+                            }
+                        }
+                        if (!sellCompleted) {
+                            System.out.println("There are no enough products in store");
+                            System.out.println("Employee informed manager");
+                        }
+                    }
+                }
+                case "LogOut" -> {
+                    System.out.println("Succesfully logged out");
+                    menuExit = true;
+                }
+                default-> {
+                }
+            }
+        }while (!menuExit);
+    }
+
+    private void EmployeeOperations() {
+        boolean menuExit = false;
+        Product product = null;
+        Employee employee = (Employee)user;
+        do {
+            menuOperations = new EmployeeMenu();
+            switch (listMenu(menuOperations.getMenuOptions())) {
+                case "AddProduct" -> {
+                    product = chooseAProduct();
+                    if(product != null)
+                        employee.addProduct(product);
+                }
+                case "MakeSell" -> {
+                    product = chooseAProduct();
+                    Customer customer = getCustomerCredentialsFromConsole();
+                    if (customer!=null) {
+                        if(!employee.makeSell(product,customer)){
+                            System.out.println("There are no enough products in store");
+                            System.out.println("Employee informed manager");
+                        }
+                    }
+                    else {
+                        System.out.println("Invalid customer, please try again");
+                    }
+                }
+                case "AddCustomer" -> {
+                    Customer customer = registerCustomer();
+                    if (customer != null)
+                        employee.addCustomer(customer);
+                }
+                case "RemoveProduct" -> {
+                    product = chooseAProduct();
+                    if(product != null)
+                        employee.removeProduct(product);
+                }
+                case "InquireProducts" -> {
+                    employee.inquireProducts();
+                }
+                case "ViewCustomerPreviousOrders" -> {
+                    Customer customer = getCustomerCredentialsFromConsole();
+                    if (customer != null) {
+                        customer.getPrevOrders();
+                    }else {
+                        System.out.println("Invalid customer, please try again");
+                    }
+                }
+                case "LogOut" -> {
+                    System.out.println("Succesfully logged out");
+                    menuExit = true;
+                }
+                default-> {
+//                    System.out.println("Please enter a valid option");
+                }
+            }
+        }while(!menuExit);
+    }
+
+    private String listMenu(String[] menu) {
+        int i = 1;
+        System.out.println("Please choose a option below, enter option number");
+        for (String item:menu) {
+            System.out.println(i++ + ". " + item);
+        }
+
+        var enteredOption = getSelectedOption(1,menu.length);
+        if (enteredOption == -1)
+            return "";
+
+        System.out.println("Selected option : " + menu[enteredOption-1]);
+        return i >= 0 ? menu[enteredOption-1] : "";
+    }
+
+    private String getStringFromConsole(String desiredInput,int minLength,int maxLength) {
+        System.out.println("Enter 'exit' to abort operations");
+        return getEnteredString(desiredInput,minLength,maxLength);
+    }
+
+    private String getEnteredString(String desiredInput,int minLength,int maxLength) {
+        String revStr = null;
+        System.out.println("Please enter a valid "+desiredInput+" between " + minLength + "-" + maxLength);
+        do {
+            try {
+                revStr = inputScanner.nextLine();
+                if (revStr.toLowerCase().equals("exit"))
+                    continue;
+                if (revStr.length() < minLength || revStr.length() > maxLength) {
+                    System.out.println("Please enter a valid "+desiredInput+" between " + minLength + "-" + maxLength);
+                }
+                else {
+                    break;
+                }
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                System.out.println("Please enter a valid name");
+                revStr = "";
+            }
+
+        }while(!revStr.toLowerCase().equals("exit"));
+        return revStr;
+    }
+
+    private int getSelectedOption(int minInput,int maxInput) {
+        int enteredOption = -1;
+
+        try {
+            enteredOption = inputScanner.nextInt();
+        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+        }
+        inputScanner.nextLine();
+
+        if (enteredOption < minInput || enteredOption > maxInput) {
+            System.out.println("Please enter a valid option");
+            enteredOption = -1;
+        }
+
+        return enteredOption;
+    }
+
+    private Customer registerCustomer() {
+        String name = getStringFromConsole("NAME",1, 15);
+        if (name.toLowerCase().equals("exit"))
+            return null;
+
+        String email = getStringFromConsole("EMAIL",1, 15);
+        if (email.toLowerCase().equals("exit"))
+            return null;
+
+        String surname = getStringFromConsole("SURNAME",1, 15);
+        if (surname.toLowerCase().equals("exit"))
+            return null;
+
+        String password = getStringFromConsole("PASSWORD",1, 15);
+        if (password.toLowerCase().equals("exit"))
+            return null;
+
+        String adress = getStringFromConsole("ADRESS",1, 25);
+        if (password.toLowerCase().equals("exit"))
+            return null;
+
+        String phone = getStringFromConsole("PHONENUMBER",1, 25);
+        if (password.toLowerCase().equals("exit"))
+            return null;
+        Customer customer = new Customer(name, surname,email ,password ,Company.getNextCustomerId());
+        customer.setPhoneNumber(phone);
+        customer.setAdress(adress);
+        return customer;
+    }
+
+    private Customer getCustomerCredentialsFromConsole() {
+        String email = getStringFromConsole("Customer Email",1, 15);
+        if (email.toLowerCase().equals("exit"))
+            return null;
+        String pw = getStringFromConsole("Customer Password",1, 15);
+        if (email.toLowerCase().equals("exit"))
+            return null;
+        return Company.searchCustomer(email, pw);
     }
 
     private String listProductsMenus(String[] menu) {
@@ -459,119 +573,4 @@ public class Menu {
         return null;
     }
 
-    private void EmployeeOperations() {
-        boolean menuExit = false;
-        Product product = null;
-        Employee employee = (Employee)user;
-        do {
-            menuOperations = new EmployeeMenu();
-            switch (listMenu(menuOperations.getMenuOptions())) {
-                case "AddProduct" -> {
-                    product = chooseAProduct();
-                    if(product != null)
-                        employee.addProduct(product);
-                }
-                case "MakeSell" -> {
-                    product = chooseAProduct();
-                    Customer customer = getCustomerCredentialsFromConsole();
-                    if (customer!=null) {
-                        if(!employee.makeSell(product,customer)){
-                            System.out.println("There are no enough products in store");
-                            System.out.println("Employee informed manager");
-                        }
-                    }
-                    else {
-                        System.out.println("Invalid customer, please try again");
-                    }
-                }
-                case "AddCustomer" -> {
-                    Customer customer = registerCustomer();
-                    if (customer != null)
-                        employee.addCustomer(customer);
-                }
-                case "RemoveProduct" -> {
-                    product = chooseAProduct();
-                    if(product != null)
-                        employee.removeProduct(product);
-                }
-                case "InquireProducts" -> {
-                    employee.inquireProducts();
-                }
-                case "ViewCustomerPreviousOrders" -> {
-                    Customer customer = getCustomerCredentialsFromConsole();
-                    if (customer != null) {
-                        customer.getPrevOrders();
-                    }else {
-                        System.out.println("Invalid customer, please try again");
-                    }
-                }
-                case "LogOut" -> {
-                    System.out.println("Succesfully logged out");
-                    menuExit = true;
-                }
-                default-> {
-//                    System.out.println("Please enter a valid option");
-                }
-            }
-        }while(!menuExit);
-    }
-
-    private void CustomerOperations() {
-        Product product = null;
-        boolean menuExit = false;
-        Customer customer = (Customer)user;
-        do {
-            menuOperations = new CustomerMenu();
-            switch (listMenu(menuOperations.getMenuOptions())) {
-                case "SearchForAProduct" -> {
-                    System.out.println("Please select product to search");
-                    product = chooseAProduct();
-                    if (product != null) {
-                        Object[] branches = Company.branches.getDataArray();
-                        for (int i = 0; i < Company.branches.getSize(); ++i) {
-                            Branch branch = (Branch) branches[i];
-                            if (branch.findFurniture(product) != null) {
-                                System.out.println("Product found in store id with " + branch.getBranchId());
-                            }
-                        }
-                    }
-                }
-                case "ListProducts" -> {
-                    Company.listProducts();
-                }
-                case "ViewPreviousOrders" -> {
-                    customer.getPrevOrders();
-                }
-                case "Buy" -> {
-                    System.out.println("Please select product to buy");
-                    product = chooseAProduct();
-                    boolean sellCompleted = false;
-                    if (product != null) {
-                        Object[] branches = Company.branches.getDataArray();
-                        for (int i = 0; i < Company.branches.getSize(); ++i) {
-                            Branch branch = (Branch)branches[i];
-                            if (branch.getOnlineEmployee().makeSell(product, customer)) {
-                                sellCompleted = true;
-                                break;
-                            }
-                        }
-                        if (!sellCompleted) {
-                            System.out.println("There are no enough products in store");
-                            System.out.println("Employee informed manager");
-                        }
-                    }
-                }
-                case "LogOut" -> {
-                    System.out.println("Succesfully logged out");
-                    menuExit = true;
-                }
-                default-> {
-                }
-            }
-        }while (!menuExit);
-    }
-
-    public void run() {
-        userMenu();
-    }
 }

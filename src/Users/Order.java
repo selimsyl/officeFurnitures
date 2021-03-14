@@ -4,6 +4,12 @@ import officeFurnitures.Branch;
 import officeFurnitures.Product;
 
 public class Order {
+    private Branch branch;
+    private Customer customer;
+    private Employee employee;
+    private Product product;
+    private int productCount;
+
     public Order(Branch myBranch, Customer customer, Employee employee, Product product, int count) {
         this.branch = myBranch;
         this.customer = customer;
@@ -17,9 +23,4 @@ public class Order {
         product.printProductInfo();
         System.out.println("------------En of Order Info------------");
     }
-    Branch branch;
-    Customer customer;
-    Employee employee;
-    Product product;
-    int productCount;
 }

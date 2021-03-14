@@ -2,11 +2,6 @@ package officeFurnitures;
 
 public class BookCase extends Product {
 
-    @Override
-    public String getColor() {
-        return "";
-    }
-
     public enum BookCaseModels implements Model {
         BOOKCASE1("BOOKCASE1"),BOOKCASE2("BOOKCASE2"),BOOKCASE3("BOOKCASE3"),BOOKCASE4("BOOKCASE4"),
         BOOKCASE5("BOOKCASE5"),BOOKCASE6("BOOKCASE6"),BOOKCASE7("BOOKCASE7"),BOOKCASE8("BOOKCASE8"),
@@ -31,6 +26,11 @@ public class BookCase extends Product {
     @Override
     public String getModelName() {
         return  model.getName();
+    }
+
+    @Override
+    public String getColor() {
+        return "";
     }
 
     @Override

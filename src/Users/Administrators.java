@@ -1,7 +1,6 @@
 package Users;
 
 import officeFurnitures.Branch;
-import officeFurnitures.Chair;
 import officeFurnitures.Product;
 
 public class Administrators extends User {
