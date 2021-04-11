@@ -42,10 +42,10 @@ public class Employee extends User {
         if (refProduct == null)
             return false;
         if (refProduct.getUnitInStock() < product.getUnitInStock()) {
-            myBranch.updateproductsNeedToBeSuplied(refProduct, 0);
+            myBranch.updateproductsNeedToBeSuplied(refProduct, 1);
             return false;
         } else if (refProduct.getUnitInStock() == product.getUnitInStock()) {
-            myBranch.updateproductsNeedToBeSuplied(refProduct, 0);
+            myBranch.updateproductsNeedToBeSuplied(refProduct, 1);
         }
         if (!getName().equals("online")) {
             System.out.println("Employee succesfully removed below prodoct");
