@@ -2,7 +2,7 @@ package containers;
 
 import java.util.*;
 
-public class KWArrayList<E>  {
+public class KWArrayList<E> {
     /**
      * Capacity of array to store datas
      */
@@ -47,6 +47,10 @@ public class KWArrayList<E>  {
         return true;
     }
 
+    /**
+     * @param index to be insert element
+     * @param element to be inserted
+     */
     public void add(int index, E element) {
         checkIndexBorder(index);
 
@@ -127,17 +131,17 @@ public class KWArrayList<E>  {
         return size == 0;
     }
 
-    public Iterator<E> iterator() {
-        return null;
-    }
-
-    public ListIterator<E> listIterator() {
-        return null;
-    }
-
-    public ListIterator<E> listIterator(int index) {
-        return null;
-    }
+//    public Iterator<E> iterator() {
+//        return null;
+//    }
+//
+//    public ListIterator<E> listIterator() {
+//        return null;
+//    }
+//
+//    public ListIterator<E> listIterator(int index) {
+//        return null;
+//    }
 
 
     /**
