@@ -57,6 +57,8 @@ public class KWLinkedList<E> {
      * @return first element in list
      */
     public E getFirst() {
+        if (head == null)
+            throw new NoSuchElementException();
         return head.data;
     }
 
@@ -64,6 +66,8 @@ public class KWLinkedList<E> {
      * @return last element in list
      */
     public E getLast() {
+        if (tail == null)
+            throw new NoSuchElementException();
         return tail.data;
     }
 

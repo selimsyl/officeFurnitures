@@ -29,6 +29,12 @@ public class KWArrayList<E>  {
         theData = (E[]) new Object[capacity];
     }
 
+    public KWArrayList(int initialCapacity) {
+        capacity = initialCapacity;
+        size = 0;
+        theData = (E[]) new Object[capacity];
+    }
+
     /**
      * @param element instert element to end of list
      * @return true if inserting is successful
@@ -88,7 +94,7 @@ public class KWArrayList<E>  {
         E removedElement = theData[index];
 
         for (int i = index; i < size - 1; ++i) {
-            theData[index] = theData[index + 1];
+            theData[i] = theData[i + 1];
         }
         size--;
         return removedElement;
@@ -133,13 +139,6 @@ public class KWArrayList<E>  {
         return null;
     }
 
-    /**
-     * @param o remove element from list
-     * @return
-     */
-    public boolean remove(Object o) {
-        return false;
-    }
 
     /**
      * @param index check index is valid
@@ -159,57 +158,4 @@ public class KWArrayList<E>  {
         theData = Arrays.copyOf(theData, capacity);
     }
 
-
-//==================================================================================================
-
-    public int lastIndexOf(Object o) {
-        return 0;
-    }
-
-    public List<E> subList(int fromIndex, int toIndex) {
-        return null;
-    }
-
-    public boolean contains(Object o) {
-        return false;
-    }
-
-    public Object[] toArray() {
-        return new Object[0];
-    }
-
-
-    public <T> T[] toArray(T[] a) {
-        return null;
-    }
-
-
-    public boolean containsAll(Collection<?> c) {
-        return false;
-    }
-
-
-    public boolean addAll(Collection<? extends E> c) {
-        return false;
-    }
-
-
-    public boolean addAll(int index, Collection<? extends E> c) {
-        return false;
-    }
-
-
-    public boolean removeAll(Collection<?> c) {
-        return false;
-    }
-
-
-    public boolean retainAll(Collection<?> c) {
-        return false;
-    }
-
-
-    public void clear() {
-
-    }
 }
