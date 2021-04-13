@@ -1,26 +1,34 @@
 package Users;
 
+import containers.KWArrayList;
+import containers.KWLinkedList;
 import factory.*;
 import officeFurnitures.Branch;
 import officeFurnitures.Product;
+
+import java.util.ListIterator;
 
 public final class Company {
     /**
      * Systems admins
      */
-    public static GenericArray<Administrators> admins;
+    public static KWArrayList<Administrators> admins;
+
+//    public static GenericArray<Administrators> admins;
     /**
      * System Customers
      */
-    public static GenericArray<Customer> customers;
+    public static KWArrayList<Customer> customers;
     /**
      * System branches
      */
-    public static GenericArray<Branch> branches;
+    public static KWLinkedList<Branch> branches;
+
+//    public static GenericArray<Branch> branches;
     /**
      * System employess
      */
-    public static GenericArray<Employee> employees;
+    public static KWArrayList<Employee> employees;
 
     /**
      * Used to give each branch to unique id
@@ -45,20 +53,24 @@ public final class Company {
      * Init company add default admin, branches, and a customer
      */
     public static void init() {
-        admins = new GenericArray<Administrators>((new Administrators("admin")));
-        branches = new GenericArray<Branch>(new Branch[]{
-                new Branch(createStarterProducts(),getNextBranchId()),
-                new Branch(createStarterProducts(),getNextBranchId())});
 
-        employees = new GenericArray<Employee>();
-        customers =new GenericArray<Customer>(new Customer("Murat","Kala","email","pw",getNextCustomerId()));
+        admins = new KWArrayList<Administrators>();
+        admins.add(new Administrators("admin"));
+
+        branches = new KWLinkedList<Branch>();
+        branches.addLast(new Branch(createStarterProducts(),getNextBranchId()));
+        branches.addLast(new Branch(createStarterProducts(),getNextBranchId()));
+
+        employees = new KWArrayList<Employee>();
+        customers =new KWArrayList<Customer>();
+        customers.add(new Customer("Murat","Kala","email","pw",getNextCustomerId()));
     }
 
     /**
      * List customer names
      */
     public static void listEmployees() {
-        for (int i = 0; i < Company.employees.getSize(); ++i) {
+        for (int i = 0; i < Company.employees.size(); ++i) {
             System.out.print(i + ". ");
             System.out.println(Company.employees.get(i).getName());
         }
@@ -69,20 +81,31 @@ public final class Company {
      * @return True if there is a branch in the system
      */
     public static boolean listBranches() {
-        if (Company.branches.getSize() == 0) {
+        if (Company.branches.size() == 0) {
             System.out.println("There is no branch in company");
             return false;
         }
 
-        Object[] branch = Company.branches.getDataArray();
+//        Object[] branch = Company.branches.getDataArray();
 
-        for (int i = 0; i < Company.branches.getSize(); ++i) {
-            if (i!=0 && i % 16 == 0) {
+        ListIterator<Branch> iterBranch = branches.listIterator();
+
+        while(iterBranch.hasNext()) {
+            Branch refBranch = iterBranch.next();
+            if (iterBranch.nextIndex()!=0 && iterBranch.nextIndex() % 16 == 0) {
                 System.out.println();
             }
-            System.out.print(((Branch)branch[i]).getBranchId() + " ");
+            System.out.print(refBranch.getBranchId() + " ");
         }
         System.out.println();
+
+
+//        for (int i = 0; i < Company.branches.getSize(); ++i) {
+//            if (i!=0 && i % 16 == 0) {
+//                System.out.println();
+//            }
+//            System.out.print(((Branch)branch[i]).getBranchId() + " ");
+//        }
         return true;
     }
 
@@ -90,7 +113,7 @@ public final class Company {
      * List customers name and email
      */
     public static void listCustomers() {
-        for (int i = 0; i < Company.customers.getSize(); ++i) {
+        for (int i = 0; i < Company.customers.size(); ++i) {
             System.out.println(Company.customers.get(i).getName() +
                    " " + Company.customers.get(i).getEmail());
         }
@@ -101,9 +124,15 @@ public final class Company {
      */
     public static void listProducts() {
         System.out.println("-----Lets Show You What We Got-----");
-        for (int i = 0; i < Company.branches.getSize(); ++i) {
-            Company.branches.get(i).listProducts();
+        ListIterator<Branch> iterBranch = branches.listIterator();
+        while(iterBranch.hasNext()) {
+            Branch refBranch = iterBranch.next();
+            refBranch.listProducts();
         }
+
+//        for (int i = 0; i < Company.branches.getSize(); ++i) {
+//            Company.branches.get(i).listProducts();
+//        }
         System.out.println("-----End Of What We Got, You can choose What You Want-----");
     }
 
@@ -121,15 +150,26 @@ public final class Company {
      * @return customer object if it is exist in sytem or null
      */
     public static Customer searchCustomer(String email,String pw) {
-        return customers.get(new Customer("", "", email, pw, 0));
+        Customer targetCustomer = new Customer("", "", email, pw, 0);
+        try {
+            return customers.get(customers.indexOf(targetCustomer));
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
     }
 
     /**
      * @param name Admin name
-     * @return admin object it if is exist in sytem or null
+     * @return admin object it if is exist in system or null
      */
     public static Administrators searchAdmin(String name) {
-        return admins.get(new Administrators(name));
+        Administrators targetAdmin = new Administrators(name);
+        try {
+            return admins.get(admins.indexOf(targetAdmin));
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+//        return admins.get(new Administrators(name));
     }
 
     /**
@@ -138,7 +178,13 @@ public final class Company {
      * @return admin object it is exist in sytem or null
      */
     public static Employee searchEmployee(String name,int id) {
-        return employees.get(new Employee(name,id,null));
+        Employee targetEmployee = new Employee(name,id,null);
+        try {
+            return employees.get(employees.indexOf(targetEmployee));
+        } catch (IndexOutOfBoundsException e) {
+            return null;
+        }
+//        return employees.get(new Employee(name,id,null));
     }
 
     /**

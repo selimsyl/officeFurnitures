@@ -3,6 +3,7 @@ import officeFurnitures.*;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 public class Menu {
@@ -175,14 +176,31 @@ public class Menu {
                     var enteredSelection = getSelectedOption(0,Company.getExistLastBranchId());
                     if (enteredSelection == -1)
                         break;
-                    Branch branch = Company.branches.get(new Branch(null,enteredSelection));
-                    if (branch != null) {
-                        if (!admin.removeBranch(branch)) {
-                            System.out.println("There is no branch with " + enteredSelection + " id");
-                        }
-                    }else{
-                        System.out.println("There is no branch with id " + enteredSelection);
+
+                    var targetBranch = new Branch(null,enteredSelection);
+                    if(Company.branches.remove(targetBranch)) {
+                        System.out.println("Selected branch with " + enteredSelection + " id removed");
+                    } else {
+                        System.out.println("There is no branch with " + enteredSelection + " id");
                     }
+
+//                    ListIterator<Branch> iterBranch = Company.branches.listIterator();
+//                    while(iterBranch.hasNext()) {
+//                        Branch refBranch = iterBranch.next();
+//                        if (refBranch.equals(targetBranch)) {
+//                            Company.branches.remove(refBranch);
+//                            break;
+//                        }
+//                    }
+
+
+//                    if (branch != null) {
+//                        if (!admin.removeBranch(branch)) {
+//                            System.out.println("There is no branch with " + enteredSelection + " id");
+//                        }
+//                    }else{
+//                        System.out.println("There is no branch with id " + enteredSelection);
+//                    }
                 }
                 case "AddEmployee" -> {
                     if(!Company.listBranches())
@@ -191,17 +209,31 @@ public class Menu {
                     var enteredSelection = getSelectedOption(0,Company.getExistLastBranchId());
                     if (enteredSelection == -1)
                         break;
-                    Branch branch = Company.branches.get(new Branch(null,enteredSelection));
-                    if (branch == null) {
-                        System.out.println("There is no branch with id " + enteredSelection);
-                        break;
+
+                    var targetBranch = new Branch(null,enteredSelection);
+                    ListIterator<Branch> iterBranch = Company.branches.listIterator();
+                    Branch refBranch = null;
+                    while(iterBranch.hasNext()) {
+                        if (iterBranch.next().equals(targetBranch)) {
+                            refBranch = iterBranch.previous();
+                            break;
+                        }
                     }
-                    var enteredName = getStringFromConsole("name",5, 10);
-                    if (!enteredName.toLowerCase().equals("exit"))
-                        admin.addEmployeeToBranch(branch,enteredName);
+                    if (refBranch != null) {
+                        var enteredName = getStringFromConsole("name", 5, 10);
+                        if (!enteredName.toLowerCase().equals("exit"))
+                            admin.addEmployeeToBranch(refBranch, enteredName);
+                    } else {
+                        System.out.println("There is no branch with id " + enteredSelection);
+                    }
+
+//                    Branch branch = Company.branches.get(new Branch(null,enteredSelection));
+//                    if (branch == null) {
+//                        break;
+//                    }
                 }
                 case "RemoveEmployee" -> {
-                    if (Company.employees.getSize() <= 0) {
+                    if (Company.employees.size() <= 0) {
                         System.out.println("There is no employee to remove");
                         break;
                     }
@@ -209,9 +241,17 @@ public class Menu {
                     var enteredSelection = getSelectedOption(0,Company.getExistEmployeeBranchId()-1);
                     if (enteredSelection == -1)
                         break;
-                    Employee employee = Company.employees.get(new Employee("dum", enteredSelection, null));
-                    if (employee != null)
-                        admin.removeEmployeeFromBranch(employee);
+
+                    Employee targetEmployee = new Employee("dum", enteredSelection, null);
+                    admin.removeEmployeeFromBranch(targetEmployee);
+
+//                    try {
+//                        Employee employee = Company.employees.remove(Company.employees.indexOf(targetEmployee));
+//                    } catch (IndexOutOfBoundsException e) {
+//
+//                    }
+//
+//                    if (employee != null)
                 }
                 case "QueryProducts" -> {
                     admin.queryProductsNeedToBeSuplied();
@@ -241,13 +281,20 @@ public class Menu {
                     System.out.println("Please select product to search");
                     product = chooseAProduct();
                     if (product != null) {
-                        Object[] branches = Company.branches.getDataArray();
-                        for (int i = 0; i < Company.branches.getSize(); ++i) {
-                            Branch branch = (Branch) branches[i];
-                            if (branch.findFurniture(product) != null) {
-                                System.out.println("Product found in store id with " + branch.getBranchId());
+                        ListIterator<Branch> iterBranch = Company.branches.listIterator();
+                        while(iterBranch.hasNext()) {
+                            Branch refBranch = iterBranch.next();
+                            if (refBranch.findFurniture(product) != null) {
+                                System.out.println("Product found in store id with " + refBranch.getBranchId());
                             }
                         }
+//                        Object[] branches = Company.branches.getDataArray();
+//                        for (int i = 0; i < Company.branches.getSize(); ++i) {
+//                            Branch branch = (Branch) branches[i];
+//                            if (branch.findFurniture(product) != null) {
+//                                System.out.println("Product found in store id with " + branch.getBranchId());
+//                            }
+//                        }
                     }
                 }
                 case "ListProducts" -> {
@@ -261,14 +308,24 @@ public class Menu {
                     product = chooseAProduct();
                     boolean sellCompleted = false;
                     if (product != null) {
-                        Object[] branches = Company.branches.getDataArray();
-                        for (int i = 0; i < Company.branches.getSize(); ++i) {
-                            Branch branch = (Branch)branches[i];
-                            if (branch.getOnlineEmployee().makeSell(product, customer)) {
+
+                        ListIterator<Branch> iterBranch = Company.branches.listIterator();
+                        while(iterBranch.hasNext()) {
+                            Branch refBranch = iterBranch.next();
+                            if (refBranch.getOnlineEmployee().makeSell(product, customer)) {
                                 sellCompleted = true;
                                 break;
                             }
                         }
+
+//                        Object[] branches = Company.branches.getDataArray();
+//                        for (int i = 0; i < Company.branches.getSize(); ++i) {
+//                            Branch branch = (Branch)branches[i];
+//                            if (branch.getOnlineEmployee().makeSell(product, customer)) {
+//                                sellCompleted = true;
+//                                break;
+//                            }
+//                        }
                         if (!sellCompleted) {
                             System.out.println("There are no enough products in store");
                             System.out.println("Employee informed manager");
