@@ -1,52 +1,80 @@
 import containers.KWArrayList;
 import containers.KWLinkedList;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Test {
 
+  public static void TestRun() {
+    new KWLinkedListTest().run();
+  }
+
   public static class KWLinkedListTest {
-    static void run() {
-      KWLinkedList<Integer> list = new KWLinkedList<Integer>();
+    KWLinkedList<Integer> list = new KWLinkedList<Integer>();
+    void run() {
       list.addFirst(1);
       list.addLast(2);
       list.addLast(3);
       list.addFirst(42);
       list.addLast(4);
 
-      printList(list);
+      if(searchItem(4,"in")) printTestResult("PASSED");
+      else printTestResult("FAILED");
 
-      list.remove(1);
-      printList(list);
+      if(searchItem(3,"in")) printTestResult("PASSED");
+      else printTestResult("FAILED");
 
-      list.remove(2);
-      printList(list);
+      if(!searchItem(333,"not in")) printTestResult("PASSED");
+      else printTestResult("FAILED");
 
-      list.remove(3);
-      printList(list);
+      if(!removeItem(545,"not in")) printTestResult("PASSED");
+      else printTestResult("FAILED");
 
-      list.remove(4);
-      printList(list);
+      if(removeItem(3,"in")) printTestResult("PASSED");
+      else printTestResult("FAILED");
 
-      list.addFirst(7);
-      printList(list);
-      list.addLast(31);
-      list.addLast(52);
-      list.addLast(21);
-      list.addLast(99);
-      printList(list);
-      list.remove(52);
-      list.remove(21);
-      printList(list);
-      if(!list.remove(47)) {
-        System.out.print("there is no 47 in the list");
-      }
     }
-    private static void printList(KWLinkedList list) {
+
+    private  boolean searchItem(Integer item,String s) {
+      System.out.println("Search item "+s+" list is started");
+      Iterator<Integer> iter = list.listIterator();
+      while(iter.hasNext()) {
+        Integer i = iter.next();
+        if (i.equals(item)) {
+          System.out.println("Find item index at : " + i);
+          System.out.println("Search item "+s+" list is end");
+          return true;
+        }
+      }
+      System.out.println("Search item "+s+" list is end");
+      return false;
+    }
+
+    private  boolean removeItem(Integer item,String s) {
+      System.out.println("Remove item "+s+" list is started");
+      Iterator<Integer> iter = list.listIterator();
+      while(iter.hasNext()) {
+        Integer i = iter.next();
+        if (i.equals(item)) {
+          list.remove(i);
+          System.out.println("Remove item index at : " + i);
+          System.out.println("Remove item "+s+" list is end");
+          return true;
+        }
+      }
+      System.out.println("Remove item "+s+" list is end");
+      return false;
+    }
+
+    private  void printList(KWLinkedList list) {
       for (int i = 0; i < list.size(); ++i) {
         System.out.print(list.get(i) + " ");
       }
       System.out.println();
+    }
+    private void printTestResult(String s) {
+      System.out.println("TEST " + s);
     }
   }
 

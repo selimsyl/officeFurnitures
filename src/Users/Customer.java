@@ -1,5 +1,7 @@
 package Users;
 
+import containers.KWArrayList;
+
 public class Customer extends User {
     private String surname,email,password;
     private String adress,phoneNumber;
@@ -8,27 +10,28 @@ public class Customer extends User {
     /**
      * Store previous order info
      */
-    GenericArray<Order> prevOrders;
+    KWArrayList<Order> prevOrders;
 
+    //    GenericArray<Order> prevOrders;
     public Customer(String name,String surname,String email,String password,int customerId) {
         super(name,customerId,UserRole.CUSTOMER);
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.customerId = customerId;
-        this.prevOrders = new GenericArray<Order>();
+        this.prevOrders = new KWArrayList<Order>();
     }
 
     /**
      * Print previous orders to stdout
      */
     public void getPrevOrders() {
-        if (prevOrders.getSize() == 0) {
+        if (prevOrders.size() == 0) {
             System.out.println("There is no previous orders");
             return;
         }
 
-        for(int i = 0; i < prevOrders.getSize(); ++i) {
+        for(int i = 0; i < prevOrders.size(); ++i) {
             prevOrders.get(i).printInfo();
         }
     }

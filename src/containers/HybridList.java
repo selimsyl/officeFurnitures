@@ -1,5 +1,7 @@
 package containers;
 
+import officeFurnitures.Product;
+
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -16,7 +18,6 @@ public class HybridList<E> {
    * max lenghth of stored arrayLists
    */
   final private int MAX_NUMBER = 100;
-
 
   /**
    * initialize hybrid list
@@ -38,11 +39,26 @@ public class HybridList<E> {
 
   /**
    * @param element to returned
-   * @return first occurence of element
+   * @return first occurence of element, otherwise null
    */
   public E get(E element) {
     int index = indexOf(element);
-    return index > -1 ? refToCurrentArrayList.get(index) : null;
+
+    return index > -1 ? get(index) : null;
+  }
+
+  /**
+   * @param index target element index
+   * @return target element
+   */
+  public E get(int index) {
+    if (index < 0 || index > size()) {
+      throw new IndexOutOfBoundsException(index);
+    }
+    int arrayListIndex = index / MAX_NUMBER;
+    int elementIndex = index % MAX_NUMBER;
+
+    return theData.listIterator(arrayListIndex).next().get(elementIndex);
   }
 
   /**
@@ -50,12 +66,12 @@ public class HybridList<E> {
    * @return index of element
    */
   public int indexOf(E element) {
-    Iterator<KWArrayList<E>> iter = theData.listIterator();
+    ListIterator<KWArrayList<E>> iter = theData.listIterator();
     while(iter.hasNext()) {
       KWArrayList<E> arrayList = iter.next();
       int targetIndex = arrayList.indexOf(element);
       if (targetIndex > -1) {
-        return targetIndex;
+        return targetIndex + (iter.nextIndex()-1) * MAX_NUMBER;
       }
     }
     return -1;

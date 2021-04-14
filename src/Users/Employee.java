@@ -59,7 +59,7 @@ public class Employee extends User {
 
     public void inquireProducts() {
         System.out.println("Listing products need to be suplied");
-        for(int i = 0; i < myBranch.getproductsNeedToBeSuplied().getSize(); ++i) {
+        for(int i = 0; i < myBranch.getproductsNeedToBeSuplied().size(); ++i) {
             Product product = myBranch.getproductsNeedToBeSuplied().get(i);
             product.printProductInfo();
         }

@@ -83,7 +83,7 @@ public class Administrators extends User {
         ListIterator<Branch> iterBranch = Company.branches.listIterator();
         while(iterBranch.hasNext()) {
             Branch refBranch = iterBranch.next();
-            for (int k = 0; k < refBranch.getproductsNeedToBeSuplied().getSize(); ++k){
+            for (int k = 0; k < refBranch.getproductsNeedToBeSuplied().size(); ++k){
                 Product product = refBranch.getproductsNeedToBeSuplied().get(k);
                 product.printProductInfo();
                 product.increaseUnitInStock(10);

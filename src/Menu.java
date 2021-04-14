@@ -1,6 +1,7 @@
 import Users.*;
 import officeFurnitures.*;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.ListIterator;
@@ -183,24 +184,6 @@ public class Menu {
                     } else {
                         System.out.println("There is no branch with " + enteredSelection + " id");
                     }
-
-//                    ListIterator<Branch> iterBranch = Company.branches.listIterator();
-//                    while(iterBranch.hasNext()) {
-//                        Branch refBranch = iterBranch.next();
-//                        if (refBranch.equals(targetBranch)) {
-//                            Company.branches.remove(refBranch);
-//                            break;
-//                        }
-//                    }
-
-
-//                    if (branch != null) {
-//                        if (!admin.removeBranch(branch)) {
-//                            System.out.println("There is no branch with " + enteredSelection + " id");
-//                        }
-//                    }else{
-//                        System.out.println("There is no branch with id " + enteredSelection);
-//                    }
                 }
                 case "AddEmployee" -> {
                     if(!Company.listBranches())
@@ -214,9 +197,11 @@ public class Menu {
                     ListIterator<Branch> iterBranch = Company.branches.listIterator();
                     Branch refBranch = null;
                     while(iterBranch.hasNext()) {
-                        if (iterBranch.next().equals(targetBranch)) {
-                            refBranch = iterBranch.previous();
+                        refBranch = iterBranch.next();
+                        if (refBranch.equals(targetBranch)) {
                             break;
+                        } else {
+                            refBranch = null;
                         }
                     }
                     if (refBranch != null) {
@@ -288,13 +273,6 @@ public class Menu {
                                 System.out.println("Product found in store id with " + refBranch.getBranchId());
                             }
                         }
-//                        Object[] branches = Company.branches.getDataArray();
-//                        for (int i = 0; i < Company.branches.getSize(); ++i) {
-//                            Branch branch = (Branch) branches[i];
-//                            if (branch.findFurniture(product) != null) {
-//                                System.out.println("Product found in store id with " + branch.getBranchId());
-//                            }
-//                        }
                     }
                 }
                 case "ListProducts" -> {
@@ -308,7 +286,6 @@ public class Menu {
                     product = chooseAProduct();
                     boolean sellCompleted = false;
                     if (product != null) {
-
                         ListIterator<Branch> iterBranch = Company.branches.listIterator();
                         while(iterBranch.hasNext()) {
                             Branch refBranch = iterBranch.next();
@@ -318,14 +295,6 @@ public class Menu {
                             }
                         }
 
-//                        Object[] branches = Company.branches.getDataArray();
-//                        for (int i = 0; i < Company.branches.getSize(); ++i) {
-//                            Branch branch = (Branch)branches[i];
-//                            if (branch.getOnlineEmployee().makeSell(product, customer)) {
-//                                sellCompleted = true;
-//                                break;
-//                            }
-//                        }
                         if (!sellCompleted) {
                             System.out.println("There are no enough products in store");
                             System.out.println("Employee informed manager");
@@ -591,6 +560,7 @@ public class Menu {
                     }while (amount == -1);
 
                     return new Chair(model,color,amount);
+
                 }
                 case "Desk" -> {
                     //Pick model

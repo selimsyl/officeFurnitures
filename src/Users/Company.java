@@ -1,5 +1,6 @@
 package Users;
 
+import containers.HybridList;
 import containers.KWArrayList;
 import containers.KWLinkedList;
 import factory.*;
@@ -86,26 +87,16 @@ public final class Company {
             return false;
         }
 
-//        Object[] branch = Company.branches.getDataArray();
-
         ListIterator<Branch> iterBranch = branches.listIterator();
 
+        System.out.println("--------Current Branches---------");
         while(iterBranch.hasNext()) {
             Branch refBranch = iterBranch.next();
-            if (iterBranch.nextIndex()!=0 && iterBranch.nextIndex() % 16 == 0) {
-                System.out.println();
-            }
-            System.out.print(refBranch.getBranchId() + " ");
+            System.out.println("Branch with id : "+refBranch.getBranchId());
         }
+        System.out.println("--------Current Branches End---------");
         System.out.println();
 
-
-//        for (int i = 0; i < Company.branches.getSize(); ++i) {
-//            if (i!=0 && i % 16 == 0) {
-//                System.out.println();
-//            }
-//            System.out.print(((Branch)branch[i]).getBranchId() + " ");
-//        }
         return true;
     }
 
@@ -129,11 +120,7 @@ public final class Company {
             Branch refBranch = iterBranch.next();
             refBranch.listProducts();
         }
-
-//        for (int i = 0; i < Company.branches.getSize(); ++i) {
-//            Company.branches.get(i).listProducts();
-//        }
-        System.out.println("-----End Of What We Got, You can choose What You Want-----");
+        System.out.println("-----End Of What We Got, You can choose Which You Desire-----");
     }
 
     /**
@@ -169,7 +156,6 @@ public final class Company {
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
-//        return admins.get(new Administrators(name));
     }
 
     /**
@@ -184,7 +170,6 @@ public final class Company {
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
-//        return employees.get(new Employee(name,id,null));
     }
 
     /**
@@ -226,15 +211,14 @@ public final class Company {
     /**
      * @return Product array for new created branches
      */
-    public static Product[] createStarterProducts() {
+    public static HybridList createStarterProducts() {
         Factory[] factories = new Factory[]{new ChairFactory(),new DeskFactory(),
                 new CabinetFactory(),new BookCaseFactory(),new TableFactory()};
 
-        Product[] products = new Product[119];
-        int index = 0;
+        HybridList<Product> products = new HybridList<Product>();
         for (Factory factory : factories) {
             for (Product product:factory.createFurniture()) {
-                products[index++] = product;
+                products.add(product);
             }
         }
         return products;

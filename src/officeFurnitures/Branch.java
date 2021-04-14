@@ -2,17 +2,22 @@ package officeFurnitures;
 
 import Users.Employee;
 import Users.GenericArray;
+import containers.HybridList;
+import containers.KWArrayList;
+
+import javax.sound.sampled.Port;
 
 public class Branch {
 
     /**
      * Producst stored in
      */
-    Product[] products;
+    HybridList<Product> products;
+//    Product[] products;
     /**
      * Products which have 0 unitInStock
      */
-    GenericArray<Product> productsNeedToBeSuplied = new GenericArray<Product>();
+    HybridList<Product> productsNeedToBeSuplied = new HybridList<Product>();
     /**
      * used as default employee for online operations to help Customers
      */
@@ -28,7 +33,7 @@ public class Branch {
      * @param products What products branch has
      * @param branchId uniqe branch id
      */
-    public Branch(Product[] products,int branchId) {
+    public Branch(HybridList<Product> products,int branchId) {
         this.branchId = branchId;
         this.products = products;
         this.onlineEmployee = new Employee("online",0,this);
@@ -56,23 +61,20 @@ public class Branch {
     }
 
     /**
-     * @return getArray
+     * @return get HybridList of products to be supplied
      */
-    public GenericArray<Product> getproductsNeedToBeSuplied() {
+    public HybridList<Product> getproductsNeedToBeSuplied() {
         return productsNeedToBeSuplied;
     }
 
     /**
      * @param furniture find product end return reference to it
-     * @return
+     * @return targetProduct or null
      */
     public Product findFurniture(Product furniture) {
-        for (Product product : products) {
-            if(product.getUnitInStock() > 0) {
-                if (furniture.equals(product)) {
-                    return product;
-                }
-            }
+        Product targetProduct = products.get(furniture);
+        if(targetProduct!=null && targetProduct.getUnitInStock() > 0) {
+            return targetProduct;
         }
         return null;
     }
@@ -81,21 +83,22 @@ public class Branch {
      * list branch`s products
      */
     public void listProducts() {
-        Product printedPrevProduct = null;
         System.out.println("Producst in Strore ID : " + branchId);
-        for (Product product: products) {
-            if (product.getUnitInStock() != 0) {
-                if (printedPrevProduct != null &&
-                        !product.getModelName().equals(printedPrevProduct.getModelName()))
-                    System.out.println();
 
-                System.out.print("["+product.getModelName() + "(" + product.getUnitInStock() + ")");
+        int printedCount = 1;
+        KWArrayList<Product> currentProducts = new KWArrayList<Product>();
+        for (int i = 0; i < products.size(); ++i) {
+            Product product = products.get(i);
+            if (product.getUnitInStock() != 0) {
+                System.out.print("["+ product.getModelName() + "(" + product.getUnitInStock() + ")");
                 String color = product.getColor();
                 if (!color.equals(""))
                     System.out.print (color);
 
                 System.out.print ("]");
-                printedPrevProduct = product;
+                if (printedCount++ % 16 == 0) {
+                    System.out.println();
+                }
             }
         }
         System.out.println();
