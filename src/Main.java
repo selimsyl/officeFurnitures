@@ -28,10 +28,10 @@ public class Main {
 //      System.out.println(list.get(72));
 //      System.out.println(list.get(13));
 
-      Driver.run();
-      Company.init();
-      Menu menu = new Menu();
+//      Driver.run();
+//      Company.init();
+//      Menu menu = new Menu();
       Test.TestRun();
-      menu.run();
+//      menu.run();
     }
 }
