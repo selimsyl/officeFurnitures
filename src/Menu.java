@@ -212,10 +212,6 @@ public class Menu {
                         System.out.println("There is no branch with id " + enteredSelection);
                     }
 
-//                    Branch branch = Company.branches.get(new Branch(null,enteredSelection));
-//                    if (branch == null) {
-//                        break;
-//                    }
                 }
                 case "RemoveEmployee" -> {
                     if (Company.employees.size() <= 0) {
@@ -230,13 +226,6 @@ public class Menu {
                     Employee targetEmployee = new Employee("dum", enteredSelection, null);
                     admin.removeEmployeeFromBranch(targetEmployee);
 
-//                    try {
-//                        Employee employee = Company.employees.remove(Company.employees.indexOf(targetEmployee));
-//                    } catch (IndexOutOfBoundsException e) {
-//
-//                    }
-//
-//                    if (employee != null)
                 }
                 case "QueryProducts" -> {
                     admin.queryProductsNeedToBeSuplied();

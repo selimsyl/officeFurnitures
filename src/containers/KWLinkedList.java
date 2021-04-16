@@ -301,16 +301,5 @@ public class KWLinkedList<E> {
             next = null;
             prev = null;
         }
-
-        /**
-         * Creates a new node that references another node.
-         * @param element The data stored
-         * @param nodeRef The node referenced by new node
-         */
-//        private Node(E element, Node<E> nodeRef) {
-//            data = element;
-//            next = nodeRef;
-//            prev = nodeRef.prev;
-//        }
     }
 }

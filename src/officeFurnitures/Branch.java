@@ -1,7 +1,6 @@
 package officeFurnitures;
 
 import Users.Employee;
-import Users.GenericArray;
 import containers.HybridList;
 import containers.KWArrayList;
 
@@ -86,7 +85,6 @@ public class Branch {
         System.out.println("Producst in Strore ID : " + branchId);
 
         int printedCount = 1;
-        KWArrayList<Product> currentProducts = new KWArrayList<Product>();
         for (int i = 0; i < products.size(); ++i) {
             Product product = products.get(i);
             if (product.getUnitInStock() != 0) {

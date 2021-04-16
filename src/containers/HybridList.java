@@ -85,13 +85,17 @@ public class HybridList<E> {
   public boolean remove(E element) {
     int index = indexOf(element);
 
+    int arrayListIndex = index / MAX_NUMBER;
+    int elementIndex = index % MAX_NUMBER;
+
     if (index > -1) {
-      refToCurrentArrayList.remove(index);
+      KWArrayList<E> tempCurrentArrayList = theData.listIterator(arrayListIndex).next();
+      tempCurrentArrayList.remove(elementIndex);
 
-      if (refToCurrentArrayList.size() == 0) {
-        theData.remove(refToCurrentArrayList);
+      if (tempCurrentArrayList.size() == 0) {
+        theData.remove(tempCurrentArrayList);
+        refToCurrentArrayList = theData.getLast();
       }
-
       return true;
     }
 

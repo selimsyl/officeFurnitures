@@ -131,19 +131,6 @@ public class KWArrayList<E> {
         return size == 0;
     }
 
-//    public Iterator<E> iterator() {
-//        return null;
-//    }
-//
-//    public ListIterator<E> listIterator() {
-//        return null;
-//    }
-//
-//    public ListIterator<E> listIterator(int index) {
-//        return null;
-//    }
-
-
     /**
      * @param index check index is valid
      *              if index is unvalid throw IndexOutOfBoundsException

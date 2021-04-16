@@ -15,17 +15,16 @@ public final class Company {
      */
     public static KWArrayList<Administrators> admins;
 
-//    public static GenericArray<Administrators> admins;
     /**
      * System Customers
      */
     public static KWArrayList<Customer> customers;
+    
     /**
      * System branches
      */
     public static KWLinkedList<Branch> branches;
 
-//    public static GenericArray<Branch> branches;
     /**
      * System employess
      */

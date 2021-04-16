@@ -72,7 +72,6 @@ public class Administrators extends User {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("No employee to remove");
         }
-//        Company.employees.remove(employee);
     }
 
     /**
@@ -89,14 +88,6 @@ public class Administrators extends User {
                 product.increaseUnitInStock(10);
             }
         }
-
-//        for (int i=0; i < Company.branches.getSize(); ++i) {
-//            for (int k = 0; k < Company.branches.get(i).getproductsNeedToBeSuplied().getSize(); ++k){
-//                Product product = Company.branches.get(i).getproductsNeedToBeSuplied().get(k);
-//                product.printProductInfo();
-//                product.increaseUnitInStock(10);
-//            }
-//        }
         System.out.println("End of Administrator quering products that are supplied");
     }
 
